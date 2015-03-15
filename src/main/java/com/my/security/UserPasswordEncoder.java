@@ -3,8 +3,9 @@ package com.my.security;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
- * User: liuchang
- * Date: 14-8-20
+ * Created with ECCS
+ * User : Ting.Yao
+ * Date : 2015/3/15.
  */
 public class UserPasswordEncoder implements PasswordEncoder {
 

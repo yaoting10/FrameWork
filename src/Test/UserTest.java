@@ -14,7 +14,7 @@ public class UserTest {
     @Test
     public void testSave(){
         String sql = "insert into t_user values (1, '1111', '测试', '1234', 0, 1, '5122')";
-        JDBCUtils.execute(JDBCUtils.getConnection(), sql);
+
     }
 
 }

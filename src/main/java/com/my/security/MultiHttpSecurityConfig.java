@@ -12,8 +12,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 
 /**
- * User: liuchang
- * Date: 14-8-14
+ * Created with ECCS
+ * User : Ting.Yao
+ * Date : 2015/3/15.
  */
 @Configuration
 @EnableWebSecurity
@@ -28,43 +29,6 @@ public class MultiHttpSecurityConfig {
             http.antMatcher("/api/**").csrf().disable();
         }
     }
-
-    @Configuration
-    @Order(2)
-    public static class AdminWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
-
-        @Autowired
-        private AdminUserDetailService userDetailService;
-
-        @Override
-        protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-            DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-            AdminPasswordEncoder encoder = new AdminPasswordEncoder();
-
-            provider.setPasswordEncoder(encoder);
-            provider.setUserDetailsService(userDetailService);
-
-            auth.authenticationProvider(provider);
-        }
-
-        @Override
-        protected void configure(HttpSecurity http) throws Exception {
-            http
-                    .antMatcher("/admin/**")
-                    .authorizeRequests()
-                    .anyRequest()
-                    .hasRole("ADMIN")
-                    .and()
-                    .formLogin()
-                    .loginPage("/admin/login")
-                    .permitAll()
-                    .and()
-                    .logout()
-                    .logoutUrl("/admin/logout")
-                    .logoutSuccessUrl("/admin/login");
-        }
-    }
-
     @Configuration
     public static class WebsiteUserCenterSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
 
