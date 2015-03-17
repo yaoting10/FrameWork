@@ -10,10 +10,13 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.sql.DataSource;
 import java.io.IOException;
@@ -51,7 +54,7 @@ public class ApplicationConfig {
         return PropertiesLoaderUtils.loadProperties(new ClassPathResource("/system.properties"));
     }
 
-  /*  @Bean
+    @Bean
     public MultipartResolver filterMultipartResolver() {
         CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
         try {
@@ -60,7 +63,7 @@ public class ApplicationConfig {
         } catch (Exception e) {
         }
         return commonsMultipartResolver;
-    }*/
+    }
 
   /*  @Bean
     public SchedulerFactoryBean schedulerFactoryBean() throws Exception {

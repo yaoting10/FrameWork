@@ -3,8 +3,11 @@ package com.my.Utils.csveed.customer;
 import lombok.Getter;
 import lombok.Setter;
 import org.csveed.api.CsvClientImpl;
+import org.csveed.bean.BeanReader;
+import org.csveed.bean.BeanReaderImpl;
 import org.csveed.bean.BeanWriter;
 
+import java.io.Reader;
 import java.io.Writer;
 import java.util.Collection;
 
@@ -19,9 +22,19 @@ public class EmbeddableCsvClientImpl<T> extends CsvClientImpl<T> {
     @Setter
     private BeanWriter<T> beanWriter;
 
-    public EmbeddableCsvClientImpl(Writer writer, Class beanClass) {
+    @Setter
+    @Getter
+    private BeanReader beanReader;
+
+    public EmbeddableCsvClientImpl(Writer writer,  Class beanClass) {
         super(writer, beanClass);
         this.beanWriter = new EmbeddableBeanWriterImpl<T>(writer, new EmbeddableBeanParser().getBeanInstructions(beanClass, null));
+
+    }
+
+    public EmbeddableCsvClientImpl(Reader reader, Class beanClass){
+        super(reader, beanClass);
+        this.beanReader = new BeanReaderImpl(reader, new EmbeddableBeanParser().getBeanInstructions(beanClass, null));
     }
 
     @Override
@@ -33,4 +46,6 @@ public class EmbeddableCsvClientImpl<T> extends CsvClientImpl<T> {
     public void writeBean(T bean) {
         getBeanWriter().writeBean(bean);
     }
+
+
 }
