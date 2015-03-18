@@ -1,6 +1,5 @@
 package com.my.core.service;
 
-import com.my.core.domain.User;
 import com.my.website.controller.vo.UserExportVo;
 
 import java.io.Reader;

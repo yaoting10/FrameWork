@@ -5,9 +5,14 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
+import org.springframework.data.web.SortHandlerMethodArgumentResolver;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.ViewResolver;
+
+import java.util.List;
 
 import static org.springframework.context.annotation.ComponentScan.Filter;
 
@@ -28,6 +33,22 @@ public class MvcConfig extends AbstractMvcConfig{
     @Bean
     public MessageSource messageSource(){
         return super.messageSource();
+    }
+
+    @Override
+    protected void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+        argumentResolvers.add(sortResolver());
+        argumentResolvers.add(pageableResolver());
+    }
+
+    @Bean
+    public PageableHandlerMethodArgumentResolver pageableResolver() {
+        return new PageableHandlerMethodArgumentResolver(sortResolver());
+    }
+
+    @Bean
+    public SortHandlerMethodArgumentResolver sortResolver() {
+        return new SortHandlerMethodArgumentResolver();
     }
 
     /**

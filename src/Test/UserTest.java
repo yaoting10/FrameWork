@@ -1,14 +1,14 @@
-import com.my.Utils.JDBCUtils;
 import com.my.core.service.ExportService;
 import com.my.core.service.impl.ExportServiceImpl;
 import com.my.website.controller.vo.UserExportVo;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.List;
 
 /**
