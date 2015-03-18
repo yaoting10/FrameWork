@@ -4,6 +4,8 @@ import com.my.core.domain.User;
 import com.my.core.repository.UserRepository;
 import com.my.core.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,5 +24,10 @@ public class UserServiceImpl implements UserService{
     @Override
     public User save(User user) {
         return userRepository.save(user);
+    }
+
+    @Override
+    public Page<User> findByUserType(Integer userType, Pageable pageable) {
+        return userRepository.findByUserType(userType, pageable);
     }
 }
