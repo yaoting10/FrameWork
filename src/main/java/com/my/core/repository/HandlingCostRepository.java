@@ -11,6 +11,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @create Date: 2015-3-18 下午09:57:32
  * @version 1.0
  */
-public interface HandingCostRepository extends JpaRepository<HandlingCost,Integer> {
-
+public interface HandlingCostRepository extends JpaRepository<HandlingCost,Integer> {
+        HandlingCost findByTypeAndArea(int type,String area);
 }

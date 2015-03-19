@@ -1,0 +1,43 @@
+package com.my.core.service.impl;
+
+import com.my.core.domain.HandlingCost;
+import com.my.core.repository.HandlingCostRepository;
+import com.my.core.service.HandingCostService;
+
+import javax.annotation.Resource;
+import java.util.List;
+
+/**
+ *
+ * @Description: 价格表业务实现类
+ * @Company: tq
+ * @create Author: 黄新强
+ * @create Date: 2015-3-18 下午09:57:32
+ * @version 1.0
+ */
+public class HandingCostServiceImpl implements HandingCostService {
+    @Resource
+    private HandlingCostRepository handlingCostRepository;
+    @Override
+    public HandlingCost addHandingCost(List<HandlingCost> handingCosts) {
+//        for (int i=0;i<handingCosts.size();i++){
+            this.handlingCostRepository.save(handingCosts);
+//        }
+        return null;
+    }
+
+    @Override
+    public void delHandingCost(int id) {
+       this.handlingCostRepository.delete(id);
+    }
+
+    @Override
+    public HandlingCost updHandlingCost(HandlingCost handlingCost) {
+        return this.handlingCostRepository.saveAndFlush(handlingCost);
+    }
+
+    @Override
+    public HandlingCost findByTypeAndArea(int type, String area) {
+        return this.handlingCostRepository.findByTypeAndArea(type,area);
+    }
+}
