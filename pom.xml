@@ -242,6 +242,11 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+      <dependency>
+          <groupId>org.apache.poi</groupId>
+          <artifactId>poi</artifactId>
+          <version>3.5-FINAL</version>
+      </dependency>
   </dependencies>
   <build>
       <resources>
