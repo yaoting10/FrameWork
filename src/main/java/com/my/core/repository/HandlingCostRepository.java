@@ -1,7 +1,11 @@
 package com.my.core.repository;
 
 import com.my.core.domain.HandlingCost;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
 
 /**
  *
@@ -13,4 +17,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface HandlingCostRepository extends JpaRepository<HandlingCost,Integer> {
         HandlingCost findByArea(String area);
+        Page<HandlingCost> findAllOderByIdDesc(Pageable pageable);
 }
