@@ -3,6 +3,9 @@ package com.my.core.service.impl;
 import com.my.core.domain.HandlingCost;
 import com.my.core.repository.HandlingCostRepository;
 import com.my.core.service.HandingCostService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,8 +49,8 @@ public class HandingCostServiceImpl implements HandingCostService {
     }
 
     @Override
-    public List<HandlingCost> findAll() {
-        return this.handlingCostRepository.findAll();
+    public Page<HandlingCost> findAll(Pageable pageable) {
+        return this.handlingCostRepository.findAllOderByIdDesc(pageable);
     }
 
     @Override

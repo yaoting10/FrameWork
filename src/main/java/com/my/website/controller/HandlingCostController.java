@@ -1,12 +1,16 @@
 package com.my.website.controller;
 
+import com.my.Utils.PageableResponse;
 import com.my.Utils.PoiUtill;
 import com.my.core.domain.HandlingCost;
 import com.my.core.service.HandingCostService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -103,5 +107,18 @@ public class HandlingCostController {
         ModelAndView modelAndView = new ModelAndView("").addObject("handlingCost",handingCost);
         return modelAndView;
     }
+
+    /**
+     * 查询所有价格
+     * @param pageable
+     * @return
+     */
+    @RequestMapping(value = "/getAllHandlingCost", method = RequestMethod.GET)
+    @ResponseBody
+    public PageableResponse getAllHandlingCost(Pageable pageable){
+       Page page=handingCostService.findAll(pageable);
+       return  PageableResponse.of(page.getContent(), page.getContent().size(), page.getTotalElements());
+}
+
 
 }
