@@ -1,8 +1,6 @@
 package com.my.core.service.impl;
 
-import com.my.Utils.ModelUtils;
-import com.my.Utils.PriceUtill;
-import com.my.Utils.TimeUtils;
+import com.my.Utils.*;
 import com.my.core.domain.HandlingCost;
 import com.my.core.domain.User;
 import com.my.core.domain.WayBill;
@@ -49,7 +47,7 @@ public class WayBillServiceImpl implements WayBillService{
     }
 
     @Override
-    public WayBill save(WayBillVo wayBillVo) {
+    public StatusResponse save(WayBillVo wayBillVo) {
 
         User user = userService.findByUserNumber(wayBillVo.getUserNumber());
         HandlingCost handlingCost = handingCostService.findByArea(wayBillVo.getArea());
@@ -63,10 +61,16 @@ public class WayBillServiceImpl implements WayBillService{
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        if(user==null){
+             return StatusResponse.error(ErrorCode.NO_SUCH_USER);
+        }
         wayBill.setUser(user);
+        if(handlingCost==null){
+            return StatusResponse.error(ErrorCode.NO_SUCH_AREA);
+        }
         wayBill.setCost(handlingCost);
         wayBill=PriceUtill.getPrice(wayBill,wayBillVo.getType(),handlingCost);
-        return wayBillRepository.save(wayBill);
+        return  StatusResponse.success();
     }
 
     @Override

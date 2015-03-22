@@ -36,7 +36,7 @@ public class HandlingCostController {
     @RequestMapping(value = "/addExcelHandlingCost",method = RequestMethod.POST)
     public ModelAndView addExcelHandlingCost(@RequestParam("file") MultipartFile file){
         try {
-            List <List>excelList=PoiUtill.readXls(file, 6);
+            List <List>excelList=PoiUtill.readXls(file, 7);
             List<HandlingCost> addList=new ArrayList<HandlingCost>();
             for (int i=0;i<excelList.size();i++){
                 HandlingCost cost = new HandlingCost();
