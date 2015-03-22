@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.util.Date;
 
 /**
  *
@@ -144,8 +145,8 @@ public class WayBill {
         this.address = address;
     }
 
-    public long getCreateTime() {
-        return createTime;
+    public Date getCreateTime() {
+        return new Date(this.createTime);
     }
 
     public void setCreateTime(long createTime) {

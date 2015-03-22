@@ -115,7 +115,7 @@
             for (var i = 0, len = columns.length; i < len; i++) {
                 if(columns[i].id == "id"){
                     var operation = "";
-                    operation +=  '<a class="btn btn-info btn-xs btn-line" href="/wayBill/edit?id='+record.id+'">编辑</a> &nbsp&nbsp';
+                    operation +=  '<a class="btn btn-info btn-xs btn-line" href="/wayBill/edit?wayBillId='+record.id+'">编辑</a> &nbsp&nbsp';
                     operation +=  '<a class="btn btn-info btn-xs btn-line" onclick="deleteWayBill('+record.id+')">删除</a>';
                     record.id = operation;
                 }

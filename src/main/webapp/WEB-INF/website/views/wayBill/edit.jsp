@@ -51,15 +51,15 @@
                                 <!-- /.toolbar -->
                             </header>
                             <div class="body collapse in" id="div-5" aria-expanded="true" style="">
-                                <form:form commandName="wayBill" method="post" id="handlingCost"
+                                <form:form commandName="wayBill" method="post" id="wayBill"
                                            action="/wayBill/edit" class="form-horizontal">
                                     <div class="form-group row">
-                                        <label class="control-label col-lg-2">订单：</label>
+                                        <label class="control-label col-lg-2">订单号：</label>
 
                                         <div class="col-lg-4">
                                             <input id="awb"
                                                    name="awb"
-                                                   type="text"value="${waybill.awb}"
+                                                   type="text"value="${wayBill.awb}"
                                                    class="form-control">
                                         </div>
                                         <label class="control-label col-lg-2">重量：</label>
@@ -67,7 +67,7 @@
                                             <input id="weight"
                                                    name="weight"
                                                    type="text"
-                                                   value="${waybill.weight}"
+                                                   value="${wayBill.weight}"
                                                    class="form-control">
                                         </div>
                                     </div>
@@ -78,7 +78,7 @@
                                             <input id="address"
                                                    name="address"
                                                    type="text"
-                                                   value="${waybill.address}"
+                                                   value="${wayBill.address}"
                                                    class="form-control">
                                         </div>
                                         <label class="control-label col-lg-2">区域：</label>
@@ -87,19 +87,20 @@
                                             <input id="area"
                                                    name="area"
                                                    type="text"
-                                                   value="${waybill.cost.area}"
+                                                   value="${wayBill.cost.area}"
                                                    class="form-control">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="control-label col-lg-2">订单时间：</label>
-                                        <div class="col-lg-4">
-                                            <input id="createTime"
-                                                   name="createTime"
-                                                   type="text"
-                                                   value="<fmt:formatDate value="${waybill.cost.area}" pattern="yyyy-MM-dd"></fmt:formatDate>"
-                                                   class="form-control">
-                                        </div>
+
+                                            <div class="input-group  col-lg-3 input-append date">
+                                                <span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>
+                                                <input type="text" readonly="" name="createTime" id="createTime"
+                                                       class="form-control"  value="<fmt:formatDate value="${wayBill.createTime}" pattern="yyyy-MM-dd"></fmt:formatDate>">
+
+                                            </div>
+
                                         <label class="control-label col-lg-2">业务员编号：</label>
                                         <div class="col-lg-4">
                                             <input id="userNumber"
@@ -136,7 +137,20 @@
 <%@ include file="/WEB-INF/website/views/common/footer.jsp" %>
 <script>
     $(document).ready(function () {
-        $('#handlingCost').bootstrapValidator({
+
+        $('#createTime').daterangepicker({
+            format: "YYYY-MM-DD",
+            separator: "/",
+            maxDate: new Date(),
+            locale: {
+                applyLabel: '确定',
+                cancelLabel: '取消',
+                fromLabel: '从',
+                toLabel: '至'
+            }
+        });
+
+        $('#wayBill').bootstrapValidator({
             excluded: [':disabled', ':hidden', ':not(:visible)'],
             message: 'This value is not valid',
             feedbackIcons: {

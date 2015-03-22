@@ -54,7 +54,7 @@
                                 <form:form commandName="wayBillVo" method="post" id="wayBill"
                                            action="/wayBill/create" class="form-horizontal">
                                     <div class="form-group row">
-                                        <label class="control-label col-lg-2">订单：</label>
+                                        <label class="control-label col-lg-2">订单号：</label>
 
                                         <div class="col-lg-4">
                                             <input id="awb"
