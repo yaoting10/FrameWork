@@ -1,6 +1,7 @@
 package com.my.core.service.impl;
 
 import com.my.Utils.ModelUtils;
+import com.my.Utils.PriceUtill;
 import com.my.Utils.TimeUtils;
 import com.my.core.domain.HandlingCost;
 import com.my.core.domain.User;
@@ -53,7 +54,6 @@ public class WayBillServiceImpl implements WayBillService{
         User user = userService.findByUserNumber(wayBillVo.getUserNumber());
         HandlingCost handlingCost = handingCostService.findByArea(wayBillVo.getArea());
 
-
         WayBill wayBill = new WayBill();
         wayBill.setAddress(wayBillVo.getAddress());
         wayBill.setAwb(wayBillVo.getAwb());
@@ -65,6 +65,7 @@ public class WayBillServiceImpl implements WayBillService{
         }
         wayBill.setUser(user);
         wayBill.setCost(handlingCost);
+        wayBill=PriceUtill.getPrice(wayBill,wayBillVo.getType(),handlingCost);
         return wayBillRepository.save(wayBill);
     }
 
