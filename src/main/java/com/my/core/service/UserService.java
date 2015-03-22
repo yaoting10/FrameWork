@@ -5,6 +5,8 @@ import com.my.website.controller.vo.UserVo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 /**
  * Created with ECCS
  * User : Ting.Yao
@@ -22,4 +24,6 @@ public interface UserService {
     User update(UserVo vo, Integer userId);
 
     void delete(Integer userId);
+
+    List<User> findAll();
 }
