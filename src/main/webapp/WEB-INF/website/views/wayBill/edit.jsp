@@ -138,16 +138,14 @@
 <script>
     $(document).ready(function () {
 
-        $('#createTime').daterangepicker({
-            format: "YYYY-MM-DD",
-            separator: "/",
-            maxDate: new Date(),
-            locale: {
-                applyLabel: '确定',
-                cancelLabel: '取消',
-                fromLabel: '从',
-                toLabel: '至'
-            }
+        $('#createTime').datepicker({
+            language: 'zh-CN',
+            pickTime: false,
+            todayBtn: true,
+            autoclose: true,
+            minView: '2',
+            forceParse: false,
+            format:"yyyy-mm-dd"
         });
 
         $('#wayBill').bootstrapValidator({
