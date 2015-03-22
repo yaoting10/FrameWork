@@ -3,6 +3,8 @@ package com.my.core.service.impl;
 import com.my.core.domain.HandlingCost;
 import com.my.core.repository.HandlingCostRepository;
 import com.my.core.service.HandingCostService;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -15,6 +17,8 @@ import java.util.List;
  * @create Date: 2015-3-18 下午09:57:32
  * @version 1.0
  */
+@Service
+@Transactional
 public class HandingCostServiceImpl implements HandingCostService {
     @Resource
     private HandlingCostRepository handlingCostRepository;
@@ -44,5 +48,10 @@ public class HandingCostServiceImpl implements HandingCostService {
     @Override
     public List<HandlingCost> findAll() {
         return this.handlingCostRepository.findAll();
+    }
+
+    @Override
+    public HandlingCost findHandlingCost(int id) {
+        return this.handlingCostRepository.findOne(id);
     }
 }

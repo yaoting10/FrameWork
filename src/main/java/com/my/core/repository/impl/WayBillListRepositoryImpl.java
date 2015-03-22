@@ -1,6 +1,6 @@
 package com.my.core.repository.impl;
 
-import com.my.Utils.csveed.JpaUtils;
+import com.my.Utils.JpaUtils;
 import com.my.core.domain.WayBill;
 import com.my.core.repository.WayBillListRepository;
 import com.my.website.controller.vo.WayBillQueryVo;

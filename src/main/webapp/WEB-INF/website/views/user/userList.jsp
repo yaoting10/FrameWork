@@ -125,7 +125,7 @@
                 if(columns[i].id == "id"){
                     var operation = "";
                     operation +=  '<a class="btn btn-info btn-xs btn-line" href="/user/edit?userId='+record.id+'">编辑</a> &nbsp&nbsp';
-                    operation +=  '<a class="btn btn-info btn-xs btn-line" href="#">删除</a>';
+                    operation +=  '<a class="btn btn-info btn-xs btn-line" href="/user/delete">删除</a>';
                     record.id = operation;
                 }
                 if(columns[i].id == "userType"){
