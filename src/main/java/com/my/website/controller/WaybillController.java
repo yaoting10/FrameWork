@@ -1,6 +1,7 @@
 package com.my.website.controller;
 
 import com.my.Utils.PageableResponse;
+import com.my.Utils.StatusResponse;
 import com.my.core.domain.HandlingCost;
 import com.my.core.domain.User;
 import com.my.core.domain.WayBill;
@@ -70,11 +71,9 @@ public class WaybillController {
      * @return
      */
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public ModelAndView addWayBill(WayBillVo wayBillVo){
-
-
-        this.wayBillService.save(wayBillVo);
-        return new ModelAndView("redirect:/wayBill");
+    @ResponseBody
+    public StatusResponse addWayBill(WayBillVo wayBillVo){
+        return this.wayBillService.save(wayBillVo);
     }
 
     /**

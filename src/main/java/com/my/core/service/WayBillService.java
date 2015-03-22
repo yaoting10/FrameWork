@@ -1,5 +1,6 @@
 package com.my.core.service;
 
+import com.my.Utils.StatusResponse;
 import com.my.core.domain.WayBill;
 import com.my.website.controller.vo.WayBillQueryVo;
 import com.my.website.controller.vo.WayBillVo;
@@ -15,7 +16,7 @@ public interface WayBillService {
 
     Page<WayBill> findByConditions(WayBillQueryVo vo, Pageable pageable);
 
-    WayBill save(WayBillVo wayBillVo);
+    StatusResponse save(WayBillVo wayBillVo);
 
     WayBill get(Integer wayBillId);
 
