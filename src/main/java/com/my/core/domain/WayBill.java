@@ -60,6 +60,9 @@ public class WayBill {
      */
     @Column(name="create_time",nullable = false)
     private long createTime;
+
+    @Column(name="type",nullable = false)
+    private int type;
     /**
      * 操作费
      */
@@ -177,4 +180,11 @@ public class WayBill {
         this.total = total;
     }
 
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
 }

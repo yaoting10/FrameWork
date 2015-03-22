@@ -36,16 +36,16 @@
                         <div class="col-xs-4">
                             <div id="dataTable_filter" class="dataTables_filter"><label>订单号： <input id="awb"
                                                                                                    type="search"
-                                                                                                   name="area"
+                                                                                                   name="awb"
                                                                                                    class="form-control input-sm"
                                                                                                    aria-controls="dataTable"/>
                             </label>
                             </div>
                         </div>
                         <div class="col-xs-4">
-                            <div id="dataTable_filter" class="dataTables_filter"><label>重量： <input id="weight"
+                            <div id="dataTable_filter" class="dataTables_filter"><label>区域： <input id="area"
                                                                                                    type="search"
-                                                                                                   name="airPrice"
+                                                                                                   name="area"
                                                                                                    class="form-control input-sm"
                                                                                                    aria-controls="dataTable"/>
                             </label>
@@ -74,11 +74,14 @@
                     <th class="whitecustumer" data-dynatable-column="area">
                         区域
                     </th>
-                    <th class="whitecustumer" data-dynatable-column="createTime">
+                    <th class="whitecustumer" data-dynatable-column="createDate">
                         订单时间
                     </th>
                     <th class="whitecustumer" data-dynatable-column="userNumber">
                         业务员编号
+                    </th>
+                    <th class="whitecustumer" data-dynatable-column="type">
+                        运输方式
                     </th>
                     <th class="whitecustumer" data-dynatable-column="id">操作</th>
                     </thead>
@@ -120,12 +123,20 @@
                     record.id = operation;
                 }
 
-                if(columns[i].id == "cost"){
-                    record.id = record.id.area
+                if(columns[i].id =="type"){
+                    if(record.type ==1){
+                        record.type = "空运";
+                    }
+                    if(record.type ==2){
+                        record.type = "汽运";
+                    }
                 }
-                if(columns[i].id == "user"){
-                    record.id = record.id.userNumber
+
+                if(columns[i].id == "createDate"){
+                    record.createDate =swtichDate(record.createDate,"date");
+
                 }
+
                 tr += cellWriter(columns[i], record);
             }
 
@@ -150,17 +161,51 @@
             } else {
                 dynatable.queries.add("area",area);
             }
-            /*var userNumber = $("#userNumber").val();
-            if (userNumber == "") {
-                dynatable.queries.remove("userNumber");
-            } else {
-                dynatable.queries.add("userNumber",userNumber);
-            }*/
+
             dynatable.process();
         });
     });
 
-    function deleteWayBillt(id){
+    Date.prototype.format = function(format){
+        var o = {
+            "M+" : this.getMonth()+1, //month
+            "d+" : this.getDate(), //day
+            "D+" : this.getDate()-1, //day
+            "h+" : this.getHours(), //hour
+            "H+" : this.getHours()-8, //hour
+            "m+" : this.getMinutes(), //minute
+            "s+" : this.getSeconds(), //second
+            "q+" : Math.floor((this.getMonth()+3)/3), //quarter
+            "S" : this.getMilliseconds() //millisecond
+        }
+
+        if(/(y+)/.test(format)) {
+            format = format.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+        }
+
+        for(var k in o) {
+            if(new RegExp("("+ k +")").test(format)) {
+                format = format.replace(RegExp.$1, RegExp.$1.length==1 ? o[k] : ("00"+ o[k]).substr((""+ o[k]).length));
+            }
+        }
+        return format;
+    }
+    //-------------------------格式化日期（结束）----------------------------------------------//
+
+    function swtichDate(millisecond,type){
+        var nowDate = new Date();
+        nowDate.setTime(millisecond);
+        if(type == "date"){
+            nowDate = nowDate.format("yyyy-MM-dd");
+        }else if(type == "day"){
+            nowDate = restTime(millisecond);
+        }else{
+            return;
+        }
+        return nowDate;
+    }
+
+    function deleteWayBill(id){
         $("#id").val(id);
         $("#deleteForm").submit();
     }

@@ -59,6 +59,7 @@
                                         <div class="col-lg-4">
                                             <input id="awb"
                                                    name="awb"
+                                                   readonly=""
                                                    type="text"value="${wayBill.awb}"
                                                    class="form-control">
                                         </div>
@@ -67,6 +68,7 @@
                                             <input id="weight"
                                                    name="weight"
                                                    type="text"
+                                                   readonly=""
                                                    value="${wayBill.weight}"
                                                    class="form-control">
                                         </div>
@@ -78,42 +80,55 @@
                                             <input id="address"
                                                    name="address"
                                                    type="text"
+                                                   readonly=""
                                                    value="${wayBill.address}"
                                                    class="form-control">
                                         </div>
                                         <label class="control-label col-lg-2">区域：</label>
-
                                         <div class="col-lg-4">
                                             <input id="area"
                                                    name="area"
+                                                   readonly=""
                                                    type="text"
                                                    value="${wayBill.cost.area}"
                                                    class="form-control">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-lg-2">订单时间：</label>
-
-                                            <div class="input-group  col-lg-3 input-append date">
-                                                <span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>
-                                                <input type="text" readonly="" name="createTime" id="createTime"
-                                                       class="form-control"  value="<fmt:formatDate value="${wayBill.createTime}" pattern="yyyy-MM-dd"></fmt:formatDate>">
-
-                                            </div>
-
+                                        <label class="control-label col-lg-2">运输方式：</label>
+                                        <div class="col-lg-4">
+                                            <select id="type"
+                                                    name="type"
+                                                    class="form-control input-sm"
+                                                    disabled
+                                                    aria-controls="dataTable">
+                                                <option <c:if test="${wayBill.type ==1}">selected="selected"</c:if> value="1">空运</option>
+                                                <option <c:if test="${wayBill.type ==2}">selected="selected"</c:if> value="2">汽运</option>
+                                            </select>
+                                        </div>
                                         <label class="control-label col-lg-2">业务员编号：</label>
                                         <div class="col-lg-4">
                                             <input id="userNumber"
                                                    name="userNumber"
                                                    type="text"
+                                                   readonly=""
                                                    value="${wayBill.user.userNumber}"
                                                    class="form-control">
                                         </div>
                                     </div>
                                     <div class="form-group row">
+                                        <label class="control-label col-lg-2">订单时间：</label>
+
+                                        <div class="input-group  col-lg-3 input-append date">
+                                            <span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>
+                                            <input type="text" readonly="" name="createTime" id="createTime"
+                                                   class="form-control"  value="<fmt:formatDate value="${wayBill.createTime}" pattern="yyyy-MM-dd"></fmt:formatDate>">
+                                        </div>
+
+
                                         <div class="col-lg-1 col-lg-offset-6">
-                                            <button type="submit" id="submit_btn" class="btn btn-primary btn-sm btn-line">保存</button>
-                                            <a class="btn btn-primary btn-sm btn-line" href="/handlingCost"
+                                           <%-- <button type="submit" id="submit_btn" class="btn btn-primary btn-sm btn-line">保存</button>--%>
+                                            <a class="btn btn-primary btn-sm btn-line" href="/wayBill"
                                                data-original-title="返回" title="">返回</a>
                                         </div>
                                     </div>
@@ -138,15 +153,15 @@
 <script>
     $(document).ready(function () {
 
-        $('#createTime').datepicker({
-            language: 'zh-CN',
+       /* $('#createTime').datepicker({
+            language: 'zh-cn',
             pickTime: false,
             todayBtn: true,
-            autoclose: true,
+            autoClose: true,
             minView: '2',
             forceParse: false,
             format:"yyyy-mm-dd"
-        });
+        });*/
 
         $('#wayBill').bootstrapValidator({
             excluded: [':disabled', ':hidden', ':not(:visible)'],

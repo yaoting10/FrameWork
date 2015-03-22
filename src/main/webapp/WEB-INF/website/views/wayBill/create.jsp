@@ -92,14 +92,6 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-lg-2">订单时间：</label>
-                                        <div class="col-lg-4">
-                                            <input id="createTime"
-                                                   name="createTime"
-                                                   type="text"
-                                                   value=""
-                                                   class="form-control">
-                                        </div>
                                         <label class="control-label col-lg-2">业务员编号：</label>
                                         <div class="col-lg-4">
                                             <input id="userNumber"
@@ -108,8 +100,27 @@
                                                    value=""
                                                    class="form-control">
                                         </div>
+                                        <label class="control-label col-lg-2">运输方式：</label>
+                                        <div class="col-lg-4">
+                                            <select id="type"
+                                                    name="type"
+                                                    class="form-control input-sm"
+                                                    aria-controls="dataTable">
+                                                <option <c:if test="${user.userType ==1}">selected="selected"</c:if> value="1">空运</option>
+                                                <option <c:if test="${user.userType ==2}">selected="selected"</c:if> value="2">汽运</option>
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class="form-group row">
+                                        <label class="control-label col-lg-2">订单时间：</label>
+                                        <div class="col-lg-4">
+                                            <div class="input-group input-append date">
+                                                <span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>
+                                                <input type="text" readonly="" name="createTime" id="createTime"
+                                                       class="form-control"  value="">
+
+                                            </div>
+                                        </div>
                                         <div class="col-lg-1 col-lg-offset-6">
                                             <button type="submit" id="submit_btn" class="btn btn-primary btn-sm btn-line">保存</button>
                                             <a class="btn btn-primary btn-sm btn-line" href="/wayBill"
@@ -135,6 +146,17 @@
 <%@ include file="/WEB-INF/website/views/common/footer.jsp" %>
 <script>
     $(document).ready(function () {
+        $('#createTime').datepicker({
+            language: 'zh-cn',
+            pickTime: false,
+            todayBtn: true,
+            autoClose: true,
+            minView: '2',
+            forceParse: false,
+            format:"yyyy-mm-dd"
+        });
+
+
         $('#wayBill').bootstrapValidator({
             excluded: [':disabled', ':hidden', ':not(:visible)'],
             message: 'This value is not valid',
