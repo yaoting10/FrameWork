@@ -45,4 +45,11 @@ public interface HandingCostService {
      * @return
      */
     List<HandlingCost> findAll();
+
+    /**
+     * 根据主键差价格
+     * @param id
+     * @return
+     */
+    HandlingCost findHandlingCost(int id);
 }

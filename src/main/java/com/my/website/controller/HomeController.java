@@ -13,7 +13,7 @@ public class HomeController{
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView index() {
         String slogan = "Live long and prosper.";
-        ModelAndView modelAndView = new ModelAndView("index");
+        ModelAndView modelAndView = new ModelAndView("test");
         modelAndView.addObject("slogan", slogan);
         return modelAndView;
     }
