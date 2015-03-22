@@ -78,6 +78,7 @@ public class WayBill {
     @Column(name="total")
     private double total;
 
+
     public WayBill() {
         super();
     }

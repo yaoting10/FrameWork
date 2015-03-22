@@ -41,4 +41,7 @@ public class WayBillServiceImpl implements WayBillService{
         return wayBillRepository.findOne(wayBillId);
     }
 
+    public void delete(Integer wayBillId) {
+        wayBillRepository.delete(wayBillId);
+    }
 }
