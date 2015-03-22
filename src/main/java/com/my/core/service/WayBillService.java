@@ -18,4 +18,6 @@ public interface WayBillService {
 
     WayBill get(Integer wayBillId);
 
+    void delete(Integer wayBillId);
+
 }
