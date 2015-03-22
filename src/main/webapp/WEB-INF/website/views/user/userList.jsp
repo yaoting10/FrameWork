@@ -52,17 +52,8 @@
                             </div>
                         </div>
                         <div class="col-xs-4">
-                           <%-- <div id="dataTable_filter" class="dataTables_filter"><label>提现状态： <select id="status"
-                                                                                                      name="status"
-                                                                                                      class="form-control input-sm"
-                                                                                                      aria-controls="dataTable">
-                                <option value="">-请选择-</option>
-                                <option value="0">待处理</option>
-                                <option value="1">接受</option>
-                                <option value="2">拒绝</option>
-                            </select>
-                            </label> &nbsp;&nbsp;<a id="serachCondition"  class="btn btn-info btn-sm btn-line">搜索</a>
-                            </div>--%>
+                            <a id="serachCondition"  class="btn btn-info btn-sm btn-line">搜索</a>
+                            </div>
                         </div>
                     </div>
 
@@ -101,9 +92,9 @@
         <!-- /.outer -->
     </div>
     <!-- /#content -->
-    <form id="optAccpet" action="/admin/withdraw/accpet" method="post">
+    <form id="deleteForm" action="/user/delete" method="post">
         <input hidden="true" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        <input hidden="true" id="awithdarwId" name="id"/>
+        <input hidden="true" id="userId" name="userId"/>
     </form>
 </div>
 <%@ include file="/WEB-INF/website/views/common/footer.jsp" %>
@@ -125,7 +116,7 @@
                 if(columns[i].id == "id"){
                     var operation = "";
                     operation +=  '<a class="btn btn-info btn-xs btn-line" href="/user/edit?userId='+record.id+'">编辑</a> &nbsp&nbsp';
-                    operation +=  '<a class="btn btn-info btn-xs btn-line" href="/user/delete">删除</a>';
+                    operation +=  '<a class="btn btn-info btn-xs btn-line" onclick="deleteUser('+record.id+')">删除</a>';
                     record.id = operation;
                 }
                 if(columns[i].id == "userType"){
@@ -178,4 +169,9 @@
             dynatable.process();
         });
     });
+
+    function deleteUser(userId){
+        $("#userId").val(userId);
+        $("#deleteForm").submit();
+    }
 </script>

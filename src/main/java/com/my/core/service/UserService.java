@@ -13,7 +13,7 @@ import org.springframework.data.domain.Pageable;
 public interface UserService {
     User save(User user);
 
-    Page<User> findAll(Pageable pageable);
+    Page<User> findByConditions(UserVo vo, Pageable pageable);
 
     User findOne(Integer userId);
 

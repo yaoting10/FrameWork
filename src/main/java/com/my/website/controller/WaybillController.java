@@ -17,16 +17,25 @@ import org.springframework.web.servlet.ModelAndView;
  * Date : 2015/3/18.
  */
 @Controller
-public class WaybllController {
+@RequestMapping("/way_bill")
+public class WaybillController {
 
     @Autowired
     private WayBillService wayBillService;
 
-    @RequestMapping(value = "/way_bill/list", method = RequestMethod.GET)
+
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public ModelAndView wayBill(WayBillQueryVo vo, Pageable pageable) {
+        ModelAndView modelAndView = new ModelAndView("wayBill/list");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     public ModelAndView list(WayBillQueryVo vo, Pageable pageable) {
         ModelAndView modelAndView = new ModelAndView("wayBill/list");
         Page<WayBill> wayBillPage = wayBillService.findByConditions(vo, pageable);
-        modelAndView.addObject("page", wayBillPage);
+
         return modelAndView;
     }
 }

@@ -37,8 +37,8 @@ public class UserController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public
     @ResponseBody
-    PageableResponse list(Pageable pageable) {
-        Page<User> userPage = userService.findAll(pageable);
+    PageableResponse list(UserVo vo, Pageable pageable) {
+        Page<User> userPage = userService.findByConditions(vo, pageable);
         return PageableResponse.of(userPage.getContent(), userPage.getContent().size(), userPage.getTotalElements());
     }
 
@@ -65,15 +65,15 @@ public class UserController {
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public ModelAndView edit(UserVo vo, Integer userId) {
-        ModelAndView modelAndView = new ModelAndView("user/userList");
+        ModelAndView modelAndView = new ModelAndView("redirect:/user");
         userService.update(vo, userId);
         return modelAndView;
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public ModelAndView delete(Integer userId) {
-        ModelAndView modelAndView = new ModelAndView("user/userList");
         userService.delete(userId);
+        ModelAndView modelAndView = new ModelAndView("redirect:/user");
         return modelAndView;
     }
 }

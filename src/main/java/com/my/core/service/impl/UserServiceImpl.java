@@ -1,12 +1,14 @@
 package com.my.core.service.impl;
 
 import com.my.core.domain.User;
+import com.my.core.repository.UserListRepository;
 import com.my.core.repository.UserRepository;
 import com.my.core.service.UserService;
 import com.my.website.controller.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,14 +24,17 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserListRepository userListRepository;
+
     @Override
     public User save(User user) {
         return userRepository.save(user);
     }
 
     @Override
-    public Page<User> findAll(Pageable pageable) {
-        return userRepository.findAll(pageable);
+    public Page<User> findByConditions(UserVo vo, Pageable pageable) {
+        return userListRepository.findByConditions(vo, pageable);
     }
 
     @Override
@@ -52,6 +57,8 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void delete(Integer userId) {
-        userRepository.delete(userId);
+        User user = userRepository.findOne(userId);
+        userRepository.findAll();
+        userRepository.delete(user);
     }
 }
