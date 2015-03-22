@@ -33,6 +33,11 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public User findByUserNumber(String userNumber) {
+        return userRepository.findByUserNumber(userNumber);
+    }
+
+    @Override
     public Page<User> findByConditions(UserVo vo, Pageable pageable) {
         return userListRepository.findByConditions(vo, pageable);
     }

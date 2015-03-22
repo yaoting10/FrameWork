@@ -1,8 +1,5 @@
 package com.my.core.domain;
 
-import java.util.Date;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -41,7 +38,7 @@ public class WayBill {
      */
     @ManyToOne
     @JoinColumn(name="fk_handling_cost_id")
-    private HandlingCost handlingcost;
+    private HandlingCost cost;
     /**
      * 运单号
      */
@@ -78,17 +75,18 @@ public class WayBill {
     @Column(name="total")
     private double total;
 
+
     public WayBill() {
         super();
     }
 
-    public WayBill(int id, User user, HandlingCost handlingcost, String awb,
+    public WayBill(int id, User user, HandlingCost cost, String awb,
                    double weight, String address, long createTime,
                    double handlingCost2, double addedWeigh, double total) {
         super();
         this.id = id;
         this.user = user;
-        this.handlingcost = handlingcost;
+        this.cost = cost;
         this.awb = awb;
         this.weight = weight;
         this.address = address;
@@ -114,12 +112,12 @@ public class WayBill {
         this.user = user;
     }
 
-    public HandlingCost getHandlingcost() {
-        return handlingcost;
+    public HandlingCost getCost() {
+        return cost;
     }
 
-    public void setHandlingcost(HandlingCost handlingcost) {
-        this.handlingcost = handlingcost;
+    public void setCost(HandlingCost cost) {
+        this.cost = cost;
     }
 
     public String getAwb() {

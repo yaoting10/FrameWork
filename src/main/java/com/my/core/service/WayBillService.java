@@ -2,6 +2,7 @@ package com.my.core.service;
 
 import com.my.core.domain.WayBill;
 import com.my.website.controller.vo.WayBillQueryVo;
+import com.my.website.controller.vo.WayBillVo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -14,8 +15,10 @@ public interface WayBillService {
 
     Page<WayBill> findByConditions(WayBillQueryVo vo, Pageable pageable);
 
-    WayBill save(WayBill wayBill);
+    WayBill save(WayBillVo wayBillVo);
 
     WayBill get(Integer wayBillId);
+
+    void delete(Integer wayBillId);
 
 }

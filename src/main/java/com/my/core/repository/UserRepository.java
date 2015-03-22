@@ -13,4 +13,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface UserRepository extends JpaRepository<User, Integer>{
     User findByUserName(String userName);
     Page<User> findByUserType(Integer userType, Pageable pageable);
+
+    User findByUserNumber(String userNumber);
 }

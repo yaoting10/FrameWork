@@ -74,20 +74,16 @@
                     </a>
                     <ul>
                         <li>
-                            <a href="/wayBill/list/">
+                            <a href="/wayBill">
                                 <i class="fa fa-angle-left"></i>&nbsp; 运单列表</a>
                         </li>
                         <li>
-                            <a href="#">
-                                <i class="fa fa-angle-right"></i>&nbsp; 运单导入</a>
+                            <a href="/wayBill/create">
+                                <i class="fa fa-angle-right"></i>&nbsp; 运单添加</a>
                         </li>
                         <li>
                             <a href="#">
-                                <i class="fa fa-angle-left"></i>&nbsp; 运单导出</a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-angle-left"></i>&nbsp; 运单添加</a>
+                                <i class="fa fa-angle-left"></i>&nbsp; 运单导入</a>
                         </li>
                     </ul>
                 </li>
