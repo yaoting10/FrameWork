@@ -45,4 +45,9 @@ public class HandingCostServiceImpl implements HandingCostService {
     public List<HandlingCost> findAll() {
         return this.handlingCostRepository.findAll();
     }
+
+    @Override
+    public HandlingCost findHandlingCost(int id) {
+        return this.handlingCostRepository.findOne(id);
+    }
 }

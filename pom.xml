@@ -172,22 +172,6 @@
           <groupId>org.springframework.security</groupId>
           <artifactId>spring-security-config</artifactId>
       </dependency>
-      <!-- csv -->
-      <dependency>
-          <groupId>org.csveed</groupId>
-          <artifactId>csveed</artifactId>
-          <version>0.4.0</version>
-      </dependency>
-      <dependency>
-          <groupId>net.sourceforge.jexcelapi</groupId>
-          <artifactId>jxl</artifactId>
-      </dependency>
-      <!-- excel -->
-      <dependency>
-          <groupId>org.apache.poi</groupId>
-          <artifactId>poi</artifactId>
-          <version>3.9</version>
-      </dependency>
 
       <!-- Utilities -->
       <dependency>
@@ -241,44 +225,45 @@
           <scope>test</scope>
       </dependency>
 
-
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
-        <dependency>
-                   <groupId>dom4j</groupId>
-                   <artifactId>dom4j</artifactId>
-                   <version>1.6.1</version>
-         </dependency>
-         <dependency>
-                   <groupId>xmlbeans</groupId>
-                   <artifactId>xmlbeans</artifactId>
-                   <version>2.3.0</version>
-         </dependency>
-         <dependency>
-                  <groupId>org.apache.geronimo.specs</groupId>
-                   <artifactId>geronimo-stax-api_1.0_spec</artifactId>
-                    <version>1.0.1</version>
-          </dependency>
-          <dependency>
-                 <groupId>org.apache.poi</groupId>
-                  <artifactId>poi</artifactId>
-                 <version>3.7</version>
-          </dependency>
-              <dependency>
-                <groupId>org.apache.poi</groupId>
-                 <artifactId>poi-ooxml-schemas</artifactId>
-                 <version>3.7</version>
-          </dependency>
-          <dependency>
-                   <groupId>org.apache.poi</groupId>
-                 <artifactId>poi-ooxml</artifactId>
-                   <version>3.7</version>
-          </dependency>
 
+    <dependency>
+               <groupId>dom4j</groupId>
+               <artifactId>dom4j</artifactId>
+               <version>1.6.1</version>
+     </dependency>
+  <!--poi need-->
+     <dependency>
+               <groupId>xmlbeans</groupId>
+               <artifactId>xmlbeans</artifactId>
+               <version>2.3.0</version>
+     </dependency>
+     <dependency>
+              <groupId>org.apache.geronimo.specs</groupId>
+               <artifactId>geronimo-stax-api_1.0_spec</artifactId>
+                <version>1.0.1</version>
+      </dependency>
+      <dependency>
+             <groupId>org.apache.poi</groupId>
+              <artifactId>poi</artifactId>
+             <version>3.7</version>
+      </dependency>
+          <dependency>
+            <groupId>org.apache.poi</groupId>
+             <artifactId>poi-ooxml-schemas</artifactId>
+             <version>3.7</version>
+      </dependency>
+      <dependency>
+               <groupId>org.apache.poi</groupId>
+             <artifactId>poi-ooxml</artifactId>
+               <version>3.7</version>
+      </dependency>
+      <!--poi end-->
   </dependencies>
   <build>
       <resources>
