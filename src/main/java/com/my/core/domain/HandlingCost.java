@@ -49,7 +49,7 @@ public class HandlingCost {
     @Column(name = "car_operate_price")
     private double carOperatePrice;
     /**
-     * 汽运操作费
+     * 汽运续重费
      */
     @Column(name = "car_weight_price")
     private double carWeightPrice;

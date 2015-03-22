@@ -1,6 +1,8 @@
 package com.my.core.service;
 
 import com.my.core.domain.HandlingCost;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -44,7 +46,7 @@ public interface HandingCostService {
      *查询所有价格
      * @return
      */
-    List<HandlingCost> findAll();
+    Page<HandlingCost> findAll(Pageable pageable);
 
     /**
      * 根据主键差价格

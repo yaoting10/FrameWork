@@ -91,6 +91,27 @@
                         </li>
                     </ul>
                 </li>
+            <li>
+                <a href="javascript:;">
+                    <i class="fa fa-tasks"></i>
+                    <span class="link-title">中转费配置</span>
+                    <span class="fa arrow"></span>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/handlingCost">
+                            <i class="fa fa-angle-left"></i>&nbsp; 中转费列表</a>
+                    </li>
+                    <li>
+                        <a href="/handlingCost/create">
+                            <i class="fa fa-angle-left"></i>&nbsp; 中转费添加</a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-angle-right"></i>&nbsp; 中转费导入</a>
+                    </li>
+                </ul>
+            </li>
         <%--</c:forEach>--%>
     </ul>
     <!-- /#menu -->
