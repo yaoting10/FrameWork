@@ -1,5 +1,7 @@
 package com.my.core.domain;
 
+import lombok.Data;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,6 +19,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="t_handling_cost")
+@Data
 public class HandlingCost {
     /**
      * 主键id
@@ -26,79 +29,38 @@ public class HandlingCost {
     @Column(name="pk_id")
     private int id;
     /**
-     * 1汽运（操作），2空运（操作）3汽运（续重），4空运（续重）
-     */
-    @Column(name="type",nullable=false)
-    private int type;
-    /**
      * 地区
      */
     @Column(name="area",length = 600,nullable = false)
     private String area;
     /**
-     * 单价
+     * 空运单价
      */
-    @Column(name="price",nullable = false)
-    private double price;
+    @Column(name = "air_price")
+    private double airPrice;
     /**
-     * 最低价格
+     * 空运最低价格
      */
-    @Column(name="low_price",nullable = false)
-    private double lowPrice;
-
-    public HandlingCost() {
-        super();
-    }
-
-    public HandlingCost(int id, int type, String area, double price,
-                        double lowPrice) {
-        super();
-        this.id = id;
-        this.type = type;
-        this.area = area;
-        this.price = price;
-        this.lowPrice = lowPrice;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
-    public String getArea() {
-        return area;
-    }
-
-    public void setArea(String area) {
-        this.area = area;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public double getLowPrice() {
-        return lowPrice;
-    }
-
-    public void setLowPrice(double lowPrice) {
-        this.lowPrice = lowPrice;
-    }
-
-
+    @Column(name = "air_low_price")
+    private double ariLowPrice;
+    /**
+     * 汽运操作费
+     */
+    @Column(name = "car_operate_price")
+    private double carOperatePrice;
+    /**
+     * 汽运操作费
+     */
+    @Column(name = "car_weight_price")
+    private double carWeightPrice;
+    /**
+     * 汽运最低费用
+     */
+    @Column(name = "car_low_price")
+    private double carLowPrice;
+    /**
+     * 包括地区
+     */
+    @Column(name = "include_area",length = 1000)
+    private String includeArea;
 }
