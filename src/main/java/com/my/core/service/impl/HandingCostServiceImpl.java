@@ -37,7 +37,12 @@ public class HandingCostServiceImpl implements HandingCostService {
     }
 
     @Override
-    public HandlingCost findByTypeAndArea(int type, String area) {
-        return this.handlingCostRepository.findByTypeAndArea(type,area);
+    public HandlingCost findByArea(String area) {
+        return this.handlingCostRepository.findByArea(area);
+    }
+
+    @Override
+    public List<HandlingCost> findAll() {
+        return this.handlingCostRepository.findAll();
     }
 }

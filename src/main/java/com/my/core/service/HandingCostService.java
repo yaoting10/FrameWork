@@ -35,10 +35,14 @@ public interface HandingCostService {
 
     /**
      * 根据地区和类型查单价
-     * @param type
      * @param area
      * @return
      */
-    HandlingCost findByTypeAndArea(int type,String area);
+    HandlingCost findByArea(String area);
 
+    /**
+     *查询所有价格
+     * @return
+     */
+    List<HandlingCost> findAll();
 }
