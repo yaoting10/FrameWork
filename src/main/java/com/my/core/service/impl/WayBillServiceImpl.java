@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.text.ParseException;
+import java.util.List;
 
 /**
  * Created with ECCS
@@ -80,5 +81,10 @@ public class WayBillServiceImpl implements WayBillService{
 
     public void delete(Integer wayBillId) {
         wayBillRepository.delete(wayBillId);
+    }
+
+    @Override
+    public void addWayBill(List<WayBill> wayBills) {
+        wayBillRepository.save(wayBills);
     }
 }

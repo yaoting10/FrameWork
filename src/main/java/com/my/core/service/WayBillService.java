@@ -7,6 +7,8 @@ import com.my.website.controller.vo.WayBillVo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 /**
  * Created with ECCS
  * User : Ting.Yao
@@ -22,4 +24,5 @@ public interface WayBillService {
 
     void delete(Integer wayBillId);
 
+    void  addWayBill(List<WayBill> wayBills);
 }

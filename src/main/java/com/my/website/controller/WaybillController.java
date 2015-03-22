@@ -27,10 +27,7 @@ import javax.annotation.Resource;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created with ECCS
@@ -128,6 +125,7 @@ public class WaybillController {
      */
     @RequestMapping(value = "/addExcelWayBill",method = RequestMethod.POST)
     public StatusResponse addExcelWayBill(@RequestParam("file") MultipartFile file){
+        List<WayBill> addList=new ArrayList<WayBill>();
         List<User> users=this.userService.findAll();
         List <HandlingCost> handlingCosts=this.handingCostService.findHandlingCosts();
         Map<String,User>userMap=new HashMap<String,User>();
@@ -142,6 +140,7 @@ public class WaybillController {
             List<List> excelList= PoiUtill.readXls(file, 6);
             for (int i=0;i<excelList.size();i++){
                 WayBill wayBill=new WayBill();
+                int type=0;
                 for (int j=0;j<excelList.get(i).size();j++){
                     String str=excelList.get(i).get(j)+"";
                     str=str.replace(str," ");
@@ -171,13 +170,16 @@ public class WaybillController {
 
                             };break;
                     }
-                }}
+                }
+                addList.add(PriceUtill.getPrice(wayBill, type, wayBill.getCost()));
+            }
+            this.wayBillService.addWayBill(addList);
         } catch (IOException e) {
             e.printStackTrace();
         }catch (ParseException e) {
-            e.printStackTrace();
+            return StatusResponse.error(ErrorCode.DATE_FORMAT_ERRO);
         }
-        return null;
+        return StatusResponse.success();
     }
 
 
