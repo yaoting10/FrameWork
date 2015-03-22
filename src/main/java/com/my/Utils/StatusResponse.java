@@ -46,6 +46,10 @@ public class StatusResponse {
         return of(code, null);
     }
 
+    public static StatusResponse error(int code, Object data) {
+        return of(code, data);
+    }
+
     public static StatusResponse success(Object data) {
         return of(ErrorCode.SUCCESSFUL, data);
     }
