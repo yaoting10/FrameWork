@@ -1,13 +1,16 @@
 package com.my.core.service;
 
 import com.my.Utils.StatusResponse;
+import com.my.core.domain.HandlingCost;
+import com.my.core.domain.User;
 import com.my.core.domain.WayBill;
 import com.my.website.controller.vo.WayBillQueryVo;
 import com.my.website.controller.vo.WayBillVo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  * Created with ECCS
@@ -24,5 +27,5 @@ public interface WayBillService {
 
     void delete(Integer wayBillId);
 
-    void  addWayBill(List<WayBill> wayBills);
+    StatusResponse addWayBill(Map<String,User> userMap,Map<String,HandlingCost>handlingCostMap,MultipartFile file);
 }

@@ -117,8 +117,7 @@ public class WaybillController {
      * @return
      */
     @RequestMapping(value = "/addExcelWayBill",method = RequestMethod.POST)
-    public StatusResponse addExcelWayBill(@RequestParam("file") MultipartFile file){
-        List<WayBill> addList=new ArrayList<WayBill>();
+    public ModelAndView addExcelWayBill(@RequestParam("file") MultipartFile file){
         List<User> users=this.userService.findAll();
         List <HandlingCost> handlingCosts=this.handingCostService.findHandlingCosts();
         Map<String,User>userMap=new HashMap<String,User>();
@@ -129,50 +128,9 @@ public class WaybillController {
         for(User user:users){
            userMap.put(user.getUserNumber(),user);
         }
-        try {
-            List<List> excelList= PoiUtill.readXls(file, 6);
-            for (int i=0;i<excelList.size();i++){
-                WayBill wayBill=new WayBill();
-                int type=0;
-                for (int j=0;j<excelList.get(i).size();j++){
-                    String str=excelList.get(i).get(j)+"";
-                    str=str.replace(str," ");
-                    switch (j){
-                        case 0:wayBill.setAwb(str);break;
-                        case 1:wayBill.setWeight(Double.parseDouble(str));break;
-                        case 2:wayBill.setCreateTime(ModelUtils.parseToDate(str));
-                            break;
-                        case 3:
-                            User user=userMap.get(str);
-                            if (user==null){
-                                return StatusResponse.error(ErrorCode.NO_SUCH_USER,"第"+i+1+"行，用户编号有误。");
-                            }
-                            wayBill.setUser(user);
-                            break;
-                        case 4:
-                            HandlingCost hc=handlingCostMap.get(str);
-                            if(hc==null){
-                                return StatusResponse.error(ErrorCode.NO_SUCH_AREA,"第"+i+1+"行，地区有误。");
-                            }
-                            wayBill.setCost(hc);
-                            break;
-                        case 5:
-                            if("空运".equals(str)){
+        this.wayBillService.addWayBill(userMap,handlingCostMap,file);
 
-                        }else {
-
-                            };break;
-                    }
-                }
-                addList.add(PriceUtill.getPrice(wayBill, type, wayBill.getCost()));
-            }
-            this.wayBillService.addWayBill(addList);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }catch (ParseException e) {
-            return StatusResponse.error(ErrorCode.DATE_FORMAT_ERRO);
-        }
-        return StatusResponse.success();
+        return null;
     }
 
 
