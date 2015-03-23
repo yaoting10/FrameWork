@@ -190,14 +190,6 @@
                         }
                     }
                 },
-                weight: {
-                    group: '.col-lg-2',
-                    validators: {
-                        notEmpty: {
-                            message: '重量不能为空'
-                        }
-                    }
-                },
                 createTime: {
                     group: '.col-lg-2',
                     validators: {

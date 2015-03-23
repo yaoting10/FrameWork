@@ -33,7 +33,7 @@
                     <div class="row">
                         <br/>
 
-                        <div class="col-xs-4">
+                        <div class="col-xs-3">
                             <div id="dataTable_filter" class="dataTables_filter"><label>订单号： <input id="awb"
                                                                                                    type="search"
                                                                                                    name="awb"
@@ -42,7 +42,7 @@
                             </label>
                             </div>
                         </div>
-                        <div class="col-xs-4">
+                        <div class="col-xs-3">
                             <div id="dataTable_filter" class="dataTables_filter"><label>区域： <input id="area"
                                                                                                    type="search"
                                                                                                    name="area"
@@ -51,7 +51,16 @@
                             </label>
                             </div>
                         </div>
-                        <div class="col-xs-4">
+                        <div class="col-xs-3">
+                            <div id="dataTable_filter" class="dataTables_filter"><label>业务员编号： <input id="userNumber"
+                                                                                                   type="search"
+                                                                                                   name="userNumber"
+                                                                                                   class="form-control input-sm"
+                                                                                                   aria-controls="dataTable"/>
+                            </label>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
                             <a id="serachCondition"  class="btn btn-info btn-sm btn-line">搜索</a>
                         </div>
                     </div>
@@ -63,7 +72,7 @@
                 <table id="wayBill_table" class="table table-bordered table-striped">
                     <thead>
                     <th class="whitecustumer" data-dynatable-column="awb" data-dynatable-column>
-                        订单
+                        订单号
                     </th>
                     <th class="whitecustumer" data-dynatable-column="weight">
                         重量
@@ -82,6 +91,9 @@
                     </th>
                     <th class="whitecustumer" data-dynatable-column="type">
                         运输方式
+                    </th>
+                    <th class="whitecustumer" data-dynatable-column="totalPrice">
+                        中转费
                     </th>
                     <th class="whitecustumer" data-dynatable-column="id">操作</th>
                     </thead>
@@ -132,6 +144,10 @@
                     }
                 }
 
+                if(columns[i].id =="totalPrice"){
+                    record.totalPrice = record.totalPrice.toFixed(2) +" 元";
+                }
+
                 if(columns[i].id == "createDate"){
                     record.createDate =swtichDate(record.createDate,"date");
 
@@ -155,12 +171,26 @@
             }
         }).data('dynatable');
         $("#serachCondition").click(function () {
-            var userName = $("#area").val();
-            if (userName == "") {
+            var area = $("#area").val();
+            if (area == "") {
                 dynatable.queries.remove("area");
             } else {
                 dynatable.queries.add("area",area);
             }
+            var awb = $("#awb").val();
+            if (awb == "") {
+                dynatable.queries.remove("awb");
+            } else {
+                dynatable.queries.add("awb",awb);
+            }
+
+            var userNumber = $("#userNumber").val();
+            if (userNumber == "") {
+                dynatable.queries.remove("userNumber");
+            } else {
+                dynatable.queries.add("userNumber",userNumber);
+            }
+
 
             dynatable.process();
         });

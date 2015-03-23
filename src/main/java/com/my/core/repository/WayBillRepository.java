@@ -12,7 +12,6 @@ import org.springframework.data.repository.NoRepositoryBean;
  * User : Ting.Yao
  * Date : 2015/3/18.
  */
-@NoRepositoryBean
 public interface WayBillRepository extends JpaRepository<WayBill,Integer>{
-    Page<WayBill> findByConditions(WayBillQueryVo vo, Pageable pageable);
+
 }

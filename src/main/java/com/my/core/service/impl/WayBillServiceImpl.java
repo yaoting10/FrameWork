@@ -69,7 +69,9 @@ public class WayBillServiceImpl implements WayBillService{
             return StatusResponse.error(ErrorCode.NO_SUCH_AREA);
         }
         wayBill.setCost(handlingCost);
-        wayBill=PriceUtill.getPrice(wayBill,wayBillVo.getType(),handlingCost);
+        wayBill.setType(wayBillVo.getType());
+        wayBill = PriceUtill.getPrice(wayBill,wayBillVo.getType(),handlingCost);
+        wayBillListRepository.save(wayBill);
         return  StatusResponse.success();
     }
 

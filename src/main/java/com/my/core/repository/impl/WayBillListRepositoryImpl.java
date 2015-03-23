@@ -49,16 +49,16 @@ public class WayBillListRepositoryImpl extends SimpleJpaRepository<WayBill, Inte
             conditions.add((criteriaBuilder.between(transactionRoot.get("createTime"), vo.getBeginDate(), vo.getEndDate())));
         }
 
-        if(StringUtils.isNotBlank(vo.getAddress())){
-            conditions.add(criteriaBuilder.equal(transactionRoot.get("address"), vo.getAddress()));
-        }
-
-        if(StringUtils.isNotBlank(vo.getUsername())){
-            conditions.add((criteriaBuilder.equal(transactionRoot.get("user").get("userName"), vo.getUsername())));
+        if(StringUtils.isNotBlank(vo.getUserNumber())){
+            conditions.add((criteriaBuilder.equal(transactionRoot.get("user").get("userNumber"), vo.getUserNumber())));
         }
 
         if(StringUtils.isNotBlank(vo.getAwb())){
             conditions.add((criteriaBuilder.equal(transactionRoot.get("awb"), vo.getAwb())));
+        }
+
+        if(StringUtils.isNotBlank(vo.getArea())){
+            conditions.add((criteriaBuilder.equal(transactionRoot.get("cost").get("area"), vo.getArea())));
         }
 
         criteriaQuery.where(conditions.toArray(new Predicate[conditions.size()]));

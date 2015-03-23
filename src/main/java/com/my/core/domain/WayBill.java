@@ -60,7 +60,9 @@ public class WayBill {
      */
     @Column(name="create_time",nullable = false)
     private long createTime;
-
+    /**
+     * 类型
+     */
     @Column(name="type",nullable = false)
     private int type;
     /**

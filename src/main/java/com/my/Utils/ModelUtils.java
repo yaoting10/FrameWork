@@ -48,6 +48,16 @@ public class ModelUtils{
 
     public static final long parseToDate(String formatDate) throws ParseException{
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        if(formatDate.contains("年")||formatDate.contains("月")||formatDate.contains("日")){
+            sdf = new SimpleDateFormat("yyyy年MM月dd日");
+            Date dt = sdf.parse(formatDate);
+            return dt.getTime();
+        }
+        if(formatDate.contains("/")){
+            sdf = new SimpleDateFormat("yyyy/MM/dd");
+            Date dt = sdf.parse(formatDate);
+            return dt.getTime();
+        }
         Date dt = sdf.parse(formatDate);
         return dt.getTime();
     }

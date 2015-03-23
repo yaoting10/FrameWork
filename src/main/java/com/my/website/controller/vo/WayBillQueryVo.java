@@ -14,10 +14,10 @@ public class WayBillQueryVo {
 
     private Long endDate;
 
-    private String username;
+    private String userNumber;
 
     private String awb;
 
-    private String address;
+    private String area;
 
 }

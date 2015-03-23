@@ -82,7 +82,11 @@ public class WaybillController {
      */
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ModelAndView addWayBill(WayBillVo wayBillVo){
-        this.wayBillService.save(wayBillVo);
+        StatusResponse statusResponse = this.wayBillService.save(wayBillVo);
+
+        if(statusResponse.getCode() != ErrorCode.NO_SUCH_USER)
+            return new ModelAndView("error").addObject("errorMsg", statusResponse.getData());
+
         return new ModelAndView("redirect:/wayBill");
     }
 
