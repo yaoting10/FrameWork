@@ -58,6 +58,7 @@ public class WayBillServiceImpl implements WayBillService{
         HandlingCost handlingCost = handingCostService.findByArea(wayBillVo.getArea());
 
         WayBill wayBill = new WayBill();
+        wayBill.setType(wayBillVo.getType());
         wayBill.setAddress(wayBillVo.getAddress());
         wayBill.setAwb(wayBillVo.getAwb());
         wayBill.setWeight(wayBillVo.getWeight());
