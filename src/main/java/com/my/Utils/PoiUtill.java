@@ -62,9 +62,9 @@ public class PoiUtill {
                 for (int i=0;i<cell;i++){
                     Cell xh = hssfRow.getCell(i);
                     if (xh == null) {
-                        cellList.add(xh);
                         continue;
                     }
+                    cellList.add(xh);
                 }
                 list.add(cellList);
             }
