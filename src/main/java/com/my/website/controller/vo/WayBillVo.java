@@ -38,6 +38,15 @@ public class WayBillVo {
     @JsonProperty("type")
     private Integer type;
 
+    @JsonProperty("handlingCost")
+    private Double handlingCost = 0.00;
+
+    @JsonProperty("totalPrice")
+    private Double totalPrice;
+
+    @JsonProperty("addedWeigh")
+    private Double addedWeigh = 0.00;;
+
     @JsonProperty("createDate")
     private Date createDate;
 
@@ -52,6 +61,9 @@ public class WayBillVo {
         vo.setType(wayBill.getType());
         vo.setUserNumber(wayBill.getUser().getUserNumber());
         vo.setWeight(wayBill.getWeight());
+        vo.setAddedWeigh(wayBill.getAddedWeigh());
+        vo.setHandlingCost(wayBill.getHandlingCost());
+        vo.setTotalPrice(wayBill.getTotal());
         return vo;
     }
 }

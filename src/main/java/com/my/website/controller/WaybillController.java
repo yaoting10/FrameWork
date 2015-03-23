@@ -1,8 +1,5 @@
 package com.my.website.controller;
 
-import com.my.Utils.ErrorCode;
-import com.my.Utils.PageableResponse;
-import com.my.Utils.StatusResponse;
 import com.my.Utils.*;
 import com.my.core.domain.HandlingCost;
 import com.my.core.domain.User;
@@ -61,7 +58,9 @@ public class WaybillController {
     @ResponseBody
     public PageableResponse list(WayBillQueryVo vo, Pageable pageable) {
         Page<WayBill> wayBillPage = wayBillService.findByConditions(vo, pageable);
-        return PageableResponse.of(wayBillPage.getContent(), wayBillPage.getContent().size(), wayBillPage.getTotalElements());
+        List<WayBillVo> voList = new ArrayList<>();
+        wayBillPage.getContent().forEach(w->voList.add(WayBillVo.of(w)));
+        return PageableResponse.of(voList, wayBillPage.getContent().size(), wayBillPage.getTotalElements());
     }
 
     /**
@@ -82,9 +81,13 @@ public class WaybillController {
      * @return
      */
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    @ResponseBody
-    public StatusResponse addWayBill(WayBillVo wayBillVo){
-        return this.wayBillService.save(wayBillVo);
+    public ModelAndView addWayBill(WayBillVo wayBillVo){
+        StatusResponse statusResponse = this.wayBillService.save(wayBillVo);
+
+        if(statusResponse.getCode() != ErrorCode.NO_SUCH_USER)
+            return new ModelAndView("error").addObject("errorMsg", statusResponse.getData());
+
+        return new ModelAndView("redirect:/wayBill");
     }
 
     /**
@@ -99,23 +102,13 @@ public class WaybillController {
     }
 
     /**
-     * 修改订单
-     * @param wayBillVo
-     * @return
-     */
-    @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public ModelAndView updWayBill(WayBillVo wayBillVo){
-        this.wayBillService.save(wayBillVo);
-        return new ModelAndView("redirect:/wayBill");
-    }
-    /**
      * 删除订单
-    * @param  wayBillId
+    * @param  id
     * @return
             */
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public ModelAndView delWayBill(@RequestParam("wayBillId") int wayBillId){
-        this.wayBillService.delete(wayBillId);
+    public ModelAndView delWayBill(Integer id){
+        this.wayBillService.delete(id);
         return new ModelAndView("redirect:/wayBill");
     }
     /**

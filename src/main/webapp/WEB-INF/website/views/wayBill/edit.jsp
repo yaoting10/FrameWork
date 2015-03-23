@@ -117,14 +117,43 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-lg-2">订单时间：</label>
-
-                                        <div class="input-group  col-lg-3 input-append date">
-                                            <span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>
-                                            <input type="text" readonly="" name="createTime" id="createTime"
-                                                   class="form-control"  value="<fmt:formatDate value="${wayBill.createTime}" pattern="yyyy-MM-dd"></fmt:formatDate>">
+                                        <label class="control-label col-lg-2">操作费：</label>
+                                        <div class="col-lg-4">
+                                            <input id="handlingCost"
+                                                   name="handlingCost"
+                                                   type="text"
+                                                   readonly=""
+                                                   value="${wayBill.handlingCost}元"
+                                                   class="form-control">
                                         </div>
-
+                                        <label class="control-label col-lg-2">续重费：</label>
+                                        <div class="col-lg-4">
+                                            <input id="addedWeigh"
+                                                   name="addedWeigh"
+                                                   type="text"
+                                                   readonly=""
+                                                   value="${wayBill.addedWeigh}元"
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label col-lg-2">中转费：</label>
+                                        <div class="col-lg-4">
+                                            <input id="totalPrice"
+                                                   name="totalPrice"
+                                                   type="text"
+                                                   readonly=""
+                                                   value="${wayBill.total}元"
+                                                   class="form-control">
+                                        </div>
+                                        <label class="control-label col-lg-2">订单时间：</label>
+                                        <div class="col-lg-4">
+                                            <div class="input-group input-append date">
+                                                <span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>
+                                                <input type="text" readonly="" name="createTime" id="createTime"
+                                                       class="form-control"  value="<fmt:formatDate value="${wayBill.createTime}" pattern="yyyy-MM-dd"></fmt:formatDate>">
+                                            </div>
+                                        </div>
 
                                         <div class="col-lg-1 col-lg-offset-6">
                                            <%-- <button type="submit" id="submit_btn" class="btn btn-primary btn-sm btn-line">保存</button>--%>
