@@ -12,6 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Map;
 
+import java.text.ParseException;
+
 /**
  * Created with ECCS
  * User : Ting.Yao
@@ -19,7 +21,7 @@ import java.util.Map;
  */
 public interface WayBillService {
 
-    Page<WayBill> findByConditions(WayBillQueryVo vo, Pageable pageable);
+    Page<WayBill> findByConditions(WayBillQueryVo vo, Pageable pageable) throws ParseException;
 
     StatusResponse save(WayBillVo wayBillVo);
 

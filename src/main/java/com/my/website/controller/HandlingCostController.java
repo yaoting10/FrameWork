@@ -28,13 +28,20 @@ public class HandlingCostController {
     @Resource
     private HandingCostService handingCostService;
 
+
+    @RequestMapping(value = "/import",method = RequestMethod.GET)
+    public ModelAndView goExcelHandlingCost(){
+        ModelAndView modelAndView = new ModelAndView("handlingCost/import");
+        return modelAndView;
+    }
+
     /**
      * 从excel导入价格
      * @param file
      * @return
      */
-    @RequestMapping(value = "/addExcelHandlingCost",method = RequestMethod.POST)
-    public ModelAndView addExcelHandlingCost(@RequestParam("file") MultipartFile file){
+    @RequestMapping(value = "/import",method = RequestMethod.POST)
+    public ModelAndView addExcelHandlingCost(MultipartFile file){
         try {
             List <List>excelList=PoiUtill.readXls(file, 7);
             List<HandlingCost> addList=new ArrayList<HandlingCost>();

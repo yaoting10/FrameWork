@@ -7,6 +7,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 
+import java.text.ParseException;
+
 /**
  * Created with ECCS
  * User : Ting.Yao
@@ -14,5 +16,5 @@ import org.springframework.data.repository.NoRepositoryBean;
  */
 @NoRepositoryBean
 public interface WayBillListRepository extends JpaRepository<WayBill,Integer>{
-    Page<WayBill> findByConditions(WayBillQueryVo vo, Pageable pageable);
+    Page<WayBill> findByConditions(WayBillQueryVo vo, Pageable pageable) throws ParseException;
 }

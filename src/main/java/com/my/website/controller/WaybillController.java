@@ -57,10 +57,16 @@ public class WaybillController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public PageableResponse list(WayBillQueryVo vo, Pageable pageable) {
-        Page<WayBill> wayBillPage = wayBillService.findByConditions(vo, pageable);
-        List<WayBillVo> voList = new ArrayList<>();
-        wayBillPage.getContent().forEach(w->voList.add(WayBillVo.of(w)));
-        return PageableResponse.of(voList, wayBillPage.getContent().size(), wayBillPage.getTotalElements());
+        try{
+            Page<WayBill> wayBillPage = wayBillService.findByConditions(vo, pageable);
+            List<WayBillVo> voList = new ArrayList<>();
+            wayBillPage.getContent().forEach(w->voList.add(WayBillVo.of(w)));
+            return PageableResponse.of(voList, wayBillPage.getContent().size(), wayBillPage.getTotalElements());
+        }catch (ParseException e){
+
+            e.printStackTrace();
+        }
+        return PageableResponse.of(new ArrayList<>(), 0, 0L);
     }
 
     /**
@@ -111,13 +117,20 @@ public class WaybillController {
         this.wayBillService.delete(id);
         return new ModelAndView("redirect:/wayBill");
     }
+
+
+    @RequestMapping(value = "/import",method = RequestMethod.GET)
+    public ModelAndView goExcelWayBill(){
+        ModelAndView modelAndView = new ModelAndView("wayBill/import");
+        return modelAndView;
+    }
     /**
      * 从excel导入订单
      * @param file
      * @return
      */
-    @RequestMapping(value = "/addExcelWayBill",method = RequestMethod.POST)
-    public ModelAndView addExcelWayBill(@RequestParam("file") MultipartFile file){
+    @RequestMapping(value = "/import",method = RequestMethod.POST)
+    public StatusResponse addExcelWayBill(MultipartFile file){
         List<User> users=this.userService.findAll();
         List <HandlingCost> handlingCosts=this.handingCostService.findHandlingCosts();
         Map<String,User>userMap=new HashMap<String,User>();

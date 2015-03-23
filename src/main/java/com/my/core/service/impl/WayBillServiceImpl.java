@@ -47,7 +47,7 @@ public class WayBillServiceImpl implements WayBillService{
     private UserService userService;
 
     @Override
-    public Page<WayBill> findByConditions(WayBillQueryVo vo, Pageable pageable) {
+    public Page<WayBill> findByConditions(WayBillQueryVo vo, Pageable pageable) throws ParseException{
         return wayBillListRepository.findByConditions(vo, pageable);
     }
 

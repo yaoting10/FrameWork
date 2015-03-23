@@ -10,9 +10,7 @@ import lombok.Data;
 @Data
 public class WayBillQueryVo {
 
-    private Long beginDate;
-
-    private Long endDate;
+    private String queryDate;
 
     private String userNumber;
 
