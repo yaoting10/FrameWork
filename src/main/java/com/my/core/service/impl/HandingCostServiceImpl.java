@@ -57,4 +57,14 @@ public class HandingCostServiceImpl implements HandingCostService {
     public HandlingCost findHandlingCost(int id) {
         return this.handlingCostRepository.findOne(id);
     }
+
+    /**
+     * 得到所有价格表
+     *
+     * @return
+     */
+    @Override
+    public List<HandlingCost> findHandlingCosts() {
+        return this.handlingCostRepository.findAll();
+    }
 }

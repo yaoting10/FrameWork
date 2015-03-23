@@ -12,6 +12,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * Created with ECCS
  * User : Ting.Yao
@@ -65,5 +67,10 @@ public class UserServiceImpl implements UserService{
         User user = userRepository.findOne(userId);
         userRepository.findAll();
         userRepository.delete(user);
+    }
+
+    @Override
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 }
