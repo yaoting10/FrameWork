@@ -8,7 +8,9 @@ import com.my.core.service.HandingCostService;
 import com.my.core.service.UserService;
 import com.my.core.service.WayBillService;
 import com.my.website.controller.vo.WayBillQueryVo;
+import com.my.website.controller.vo.WayBillStatisticsVo;
 import com.my.website.controller.vo.WayBillVo;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -141,48 +143,36 @@ public class WaybillController {
         for(User user:users){
            userMap.put(user.getUserNumber(),user);
         }
-        try {
-            List<List> excelList= PoiUtill.readXls(file, 6);
-            for (int i=0;i<excelList.size();i++){
-                WayBill wayBill=new WayBill();
-                for (int j=0;j<excelList.get(i).size();j++){
-                    String str=excelList.get(i).get(j)+"";
-                    str=str.replace(str," ");
-                    switch (j){
-                        case 0:wayBill.setAwb(str);break;
-                        case 1:wayBill.setWeight(Double.parseDouble(str));break;
-                        case 2:wayBill.setCreateTime(ModelUtils.parseToDate(str));
-                            break;
-                        case 3:
-                            User user=userMap.get(str);
-                            if (user==null){
-                                return StatusResponse.error(ErrorCode.NO_SUCH_USER,"第"+i+1+"行，用户编号有误。");
-                            }
-                            wayBill.setUser(user);
-                            break;
-                        case 4:
-                            HandlingCost hc=handlingCostMap.get(str);
-                            if(hc==null){
-                                return StatusResponse.error(ErrorCode.NO_SUCH_AREA,"第"+i+1+"行，地区有误。");
-                            }
-                            wayBill.setCost(hc);
-                            break;
-                        case 5:
-                            if("空运".equals(str)){
+        this.wayBillService.addWayBill(userMap,handlingCostMap,file);
 
-                        }else {
-
-                            };break;
-                    }
-                }}
-        } catch (IOException e) {
-            e.printStackTrace();
-        }catch (ParseException e) {
-            e.printStackTrace();
-        }
         return null;
     }
 
+    @RequestMapping(value = "/statistics",method = RequestMethod.GET)
+    public ModelAndView goStatisticsPage(){
+        ModelAndView modelAndView = new ModelAndView("wayBill/statistics");
+        return modelAndView;
+    }
 
+    @RequestMapping(value = "/statistics/list",method = RequestMethod.GET)
+    public @ResponseBody PageableResponse statisticsList(String queryDate) {
+        try {
+            Long now =ModelUtils.currentMillis();
+            Long beginDate =0L;/*TimeUtils.subMonths(ModelUtils.getBeforeDaysMillis(now), 1)*/
+            Long endDate = now;
+            if(StringUtils.isNotBlank(queryDate)){
+                beginDate = ModelUtils.parseToDate(queryDate.split("/")[0]);
+                endDate = ModelUtils.parseToDate(queryDate.split("/")[1]);
+            }
+            List<WayBillStatisticsVo> companyVos = wayBillService.statisticForCompany(beginDate, endDate);
+            List<WayBillStatisticsVo> wayBillStatisticsVos = wayBillService.statisticWayBill(beginDate, endDate);
 
+            companyVos.addAll(wayBillStatisticsVos);
+
+            return PageableResponse.of(companyVos, companyVos.size(), Long.valueOf(companyVos.size()));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return PageableResponse.of(new ArrayList<>(), 0, 0L);
+    }
 }

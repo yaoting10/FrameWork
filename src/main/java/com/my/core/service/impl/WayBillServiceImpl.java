@@ -10,15 +10,21 @@ import com.my.core.service.HandingCostService;
 import com.my.core.service.UserService;
 import com.my.core.service.WayBillService;
 import com.my.website.controller.vo.WayBillQueryVo;
+import com.my.website.controller.vo.WayBillStatisticsVo;
 import com.my.website.controller.vo.WayBillVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created with ECCS
@@ -71,7 +77,7 @@ public class WayBillServiceImpl implements WayBillService{
         wayBill.setCost(handlingCost);
         wayBill.setType(wayBillVo.getType());
         wayBill = PriceUtill.getPrice(wayBill,wayBillVo.getType(),handlingCost);
-        wayBillListRepository.save(wayBill);
+        wayBillRepository.save(wayBill);
         return  StatusResponse.success();
     }
 
@@ -82,5 +88,75 @@ public class WayBillServiceImpl implements WayBillService{
 
     public void delete(Integer wayBillId) {
         wayBillRepository.delete(wayBillId);
+    }
+
+    @Override
+    public StatusResponse addWayBill(Map<String,User>userMap,Map<String,HandlingCost>handlingCostMap,MultipartFile file) {
+        List<WayBill> addList = new ArrayList<WayBill>();
+        int num = 0;
+        try {
+            List<List> excelList = PoiUtill.readXls(file, 6);
+            for (int i = 0; i < excelList.size(); i++) {
+                num = i;
+                WayBill wayBill = new WayBill();
+                int type = 0;
+                for (int j = 0; j < excelList.get(i).size(); j++) {
+                    String str = excelList.get(i).get(j) + "";
+                    str = str.replace(str, " ");
+                    switch (j) {
+                        case 0:
+                            wayBill.setAwb(str);
+                            break;
+                        case 1:
+                            wayBill.setWeight(Double.parseDouble(str));
+                            break;
+                        case 2:
+                            wayBill.setCreateTime(ModelUtils.parseToDate(str));
+                            break;
+                        case 3:
+                            User user = userMap.get(str);
+                            if (user == null) {
+                                return StatusResponse.error(ErrorCode.NO_SUCH_USER, "第" + i + 1 + "行，用户编号有误。");
+                            }
+                            wayBill.setUser(user);
+                            break;
+                        case 4:
+                            HandlingCost hc = handlingCostMap.get(str);
+                            if (hc == null) {
+                                return StatusResponse.error(ErrorCode.NO_SUCH_AREA, "第" + i + 1 + "行，地区有误。");
+                            }
+                            wayBill.setCost(hc);
+                            break;
+                        case 5:
+                            if ("空运".equals(str)) {
+                                type = 2;
+                            } else {
+                                type = 1;
+                            }
+                            ;
+                            break;
+                    }
+                }
+                wayBill.setType(type);
+                addList.add(PriceUtill.getPrice(wayBill, type, wayBill.getCost()));
+            }
+            wayBillRepository.save(addList);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            return StatusResponse.error(ErrorCode.DATE_FORMAT_ERRO, "第" + num + 1 + "行，日期格式不对");
+
+        }
+        return StatusResponse.success();
+    }
+
+    @Override
+    public List<WayBillStatisticsVo> statisticWayBill(Long beginDate, Long endDate) {
+        return wayBillListRepository.statisticsWayBill(beginDate, endDate);
+    }
+
+    @Override
+    public List<WayBillStatisticsVo> statisticForCompany(Long beginDate, Long endDate) {
+        return wayBillListRepository.statisticsCompany(beginDate, endDate);
     }
 }

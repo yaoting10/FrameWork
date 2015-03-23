@@ -108,6 +108,12 @@
                     </li>
                 </ul>
             </li>
+            <li>
+                <a href="/wayBill/statistics">
+                    <i class="fa fa-table"></i>
+                    <span class="link-title">&nbsp;运单统计</span>
+                </a>
+            </li>
         <%--</c:forEach>--%>
     </ul>
     <!-- /#menu -->

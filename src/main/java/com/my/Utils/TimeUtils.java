@@ -27,6 +27,10 @@ public class TimeUtils{
         return Instant.ofEpochMilli(instant).atZone(ZoneId.systemDefault()).plusMonths(months).toInstant().toEpochMilli();
     }
 
+    public static final long subMonths(long instant, long months){
+        return Instant.ofEpochMilli(instant).atZone(ZoneId.systemDefault()).minusMonths(months).toInstant().toEpochMilli();
+    }
+
     public static final long plusDays(long instant, long days){
         return Instant.ofEpochMilli(instant).atZone(ZoneId.systemDefault()).plusDays(days).toInstant().toEpochMilli();
     }
