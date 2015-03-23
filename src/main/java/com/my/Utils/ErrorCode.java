@@ -15,6 +15,7 @@ public final class ErrorCode{
             SUCCESSFUL = 0x0000,
             NO_SUCH_USER = 0x0001,
             NO_SUCH_AREA = 0x0002,
+            DATE_FORMAT_ERRO=0X0003,
 
 
             UNDEFINDED = 0xffff;
