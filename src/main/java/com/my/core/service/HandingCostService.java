@@ -54,4 +54,10 @@ public interface HandingCostService {
      * @return
      */
     HandlingCost findHandlingCost(int id);
+
+    /**
+     * 得到所有价格表
+     * @return
+     */
+    List<HandlingCost> findHandlingCosts();
 }
