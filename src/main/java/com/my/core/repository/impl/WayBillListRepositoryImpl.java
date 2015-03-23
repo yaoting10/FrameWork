@@ -1,6 +1,8 @@
 package com.my.core.repository.impl;
 
 import com.my.Utils.JpaUtils;
+import com.my.Utils.ModelUtils;
+import com.my.Utils.TimeUtils;
 import com.my.core.domain.WayBill;
 import com.my.core.repository.WayBillListRepository;
 import com.my.website.controller.vo.WayBillQueryVo;
@@ -11,6 +13,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Repository;
+import sun.util.resources.cldr.uk.TimeZoneNames_uk;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -18,6 +21,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -39,14 +43,23 @@ public class WayBillListRepositoryImpl extends SimpleJpaRepository<WayBill, Inte
     }
 
     @Override
-    public Page<WayBill> findByConditions(WayBillQueryVo vo, Pageable pageable) {
+    public Page<WayBill> findByConditions(WayBillQueryVo vo, Pageable pageable) throws ParseException{
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<WayBill> criteriaQuery = criteriaBuilder.createQuery(WayBill.class);
         Root transactionRoot = criteriaQuery.from(WayBill.class);
         List<Predicate> conditions = new ArrayList<>();
 
-        if(!Objects.isNull(vo.getBeginDate()) && !Objects.isNull(vo.getEndDate())){
-            conditions.add((criteriaBuilder.between(transactionRoot.get("createTime"), vo.getBeginDate(), vo.getEndDate())));
+
+        if(!Objects.isNull(vo.getQueryDate())){
+            Long beginDate = ModelUtils.parseToDate(vo.getQueryDate().split("/")[0]);
+            Long endDate = ModelUtils.parseToDate(vo.getQueryDate().split("/")[1]);
+
+                conditions.add(
+                        criteriaBuilder.and(
+                                criteriaBuilder.greaterThanOrEqualTo(transactionRoot.get("createTime"), beginDate),
+                                criteriaBuilder.lessThanOrEqualTo(transactionRoot.get("createTime"), endDate)
+                        )
+                );
         }
 
         if(StringUtils.isNotBlank(vo.getUserNumber())){

@@ -33,7 +33,7 @@
                     <div class="row">
                         <br/>
 
-                        <div class="col-xs-3">
+                        <div class="col-xs-4">
                             <div id="dataTable_filter" class="dataTables_filter"><label>订单号： <input id="awb"
                                                                                                    type="search"
                                                                                                    name="awb"
@@ -42,7 +42,7 @@
                             </label>
                             </div>
                         </div>
-                        <div class="col-xs-3">
+                        <div class="col-xs-4">
                             <div id="dataTable_filter" class="dataTables_filter"><label>区域： <input id="area"
                                                                                                    type="search"
                                                                                                    name="area"
@@ -51,7 +51,7 @@
                             </label>
                             </div>
                         </div>
-                        <div class="col-xs-3">
+                        <div class="col-xs-4">
                             <div id="dataTable_filter" class="dataTables_filter"><label>业务员编号： <input id="userNumber"
                                                                                                    type="search"
                                                                                                    name="userNumber"
@@ -60,7 +60,19 @@
                             </label>
                             </div>
                         </div>
-                        <div class="col-xs-3">
+
+                        <div class="col-xs-4">
+                            <div id="dataTable_filter" class="dataTables_filter"><label>运单时间：
+                                <div class="input-group  input-append date">
+                                    <span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>
+                                    <input type="text" readonly="" name="queryDate" id="queryDate"
+                                           class="form-control"  value="">
+
+                                </div>
+                            </label>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
                             <a id="serachCondition"  class="btn btn-info btn-sm btn-line">搜索</a>
                         </div>
                     </div>
@@ -124,6 +136,19 @@
         $("#logout_btn").click(function () {
             $("#logout_form").submit();
         });
+
+        $('#queryDate').daterangepicker({
+            format: "YYYY-MM-DD",
+            separator: "/",
+            maxDate: new Date(),
+            locale: {
+                applyLabel: '确定',
+                cancelLabel: '取消',
+                fromLabel: '从',
+                toLabel: '至'
+            }
+        });
+
 
         function userRowWriter(rowIndex, record, columns, cellWriter) {
             var tr = '';

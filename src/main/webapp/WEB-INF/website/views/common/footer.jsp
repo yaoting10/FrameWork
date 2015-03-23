@@ -44,6 +44,18 @@
 <script src="/resources/website/lib/timepicker/js/bootstrap-timepicker.min.js"></script>
 <!--jquery loading -->
 <script src="/resources/website/lib/loading/js/jquery.showLoading.min.js"></script>
+<script src="/resources/website/lib/screenfull/screenfull.js"></script>
+<script src="/resources/website/lib/plupload/plupload.full.min.js"></script>
+<script src="/resources/website/lib/plupload/jquery.plupload.queue/jquery.plupload.queue.min.js"></script>
+<script src="/resources/website/lib/jquery.gritter/js/jquery.gritter.min.js"></script>
+<script src="/resources/website/lib/jquery.uniform/jquery.uniform.min.js"></script>
+<script src="/resources/website/lib/jasny-bootstrap/js/jasny-bootstrap.min.js"></script>
+<script src="/resources/website/lib/jquery-form/jquery.form.js"></script>
+<script src="/resources/website/lib/formwizard/jquery.form.wizard.js"></script>
+<script src="/resources/website/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="/resources/website/lib/jquery-validation/src/localization/messages_ja.js"></script>
+<script src="/resources/website/lib/holderjs/holder.js"></script>
+
 
 <!-- Metis core scripts -->
 <script src="/resources/website/js/core.min.js"></script>

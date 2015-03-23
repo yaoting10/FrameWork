@@ -7,6 +7,8 @@ import com.my.website.controller.vo.WayBillVo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.text.ParseException;
+
 /**
  * Created with ECCS
  * User : Ting.Yao
@@ -14,7 +16,7 @@ import org.springframework.data.domain.Pageable;
  */
 public interface WayBillService {
 
-    Page<WayBill> findByConditions(WayBillQueryVo vo, Pageable pageable);
+    Page<WayBill> findByConditions(WayBillQueryVo vo, Pageable pageable) throws ParseException;
 
     StatusResponse save(WayBillVo wayBillVo);
 

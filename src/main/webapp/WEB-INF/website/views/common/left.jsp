@@ -82,7 +82,7 @@
                                 <i class="fa fa-angle-right"></i>&nbsp; 运单添加</a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="/wayBill/import">
                                 <i class="fa fa-angle-left"></i>&nbsp; 运单导入</a>
                         </li>
                     </ul>
@@ -103,7 +103,7 @@
                             <i class="fa fa-angle-left"></i>&nbsp; 中转费添加</a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="/handlingCost/import">
                             <i class="fa fa-angle-right"></i>&nbsp; 中转费导入</a>
                     </li>
                 </ul>
