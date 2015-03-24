@@ -23,10 +23,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.OutputStream;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
+
+import static com.my.Utils.PoiUtill.*;
 
 /**
  * Created with ECCS
@@ -174,5 +176,28 @@ public class WaybillController {
             e.printStackTrace();
         }
         return PageableResponse.of(new ArrayList<>(), 0, 0L);
+    }
+
+    /**
+     * excel导出接口
+     * @param response
+     */
+    @RequestMapping(value = "/statistics/excelDownLoad",method = RequestMethod.POST)
+    public void excelDownLoad(HttpServletResponse response){
+        try{
+            response.addHeader("Content-Disposition", "attachment;filename=ccc.xls");
+            response.setContentType("application/ms-excel");
+            response.setCharacterEncoding("GB2312");
+            String[] strings={"123"} ;
+            List<List> lists=new ArrayList<List>();
+            List simList=new ArrayList();
+            simList.add(1);
+            lists.add(simList);
+            OutputStream out=response.getOutputStream();
+            PoiUtill.writeExcel(out, strings, lists, "测试");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 }
