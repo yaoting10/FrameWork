@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Slf4j
 public class HomeController{
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
     public ModelAndView index() {
         ModelAndView modelAndView = new ModelAndView("index");
         return modelAndView;

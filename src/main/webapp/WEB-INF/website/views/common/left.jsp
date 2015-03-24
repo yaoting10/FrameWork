@@ -35,37 +35,39 @@
 
     <!-- #menu -->
     <ul id="menu" class="">
-        <%--<c:forEach items="${sessionScope.SPRING_SECURITY_CONTEXT.authentication.authorities}" var="roleInfo">
-            <c:if test="${roleInfo eq 'ROLE_ADMIN'}">--%>
-        <li>
-            <a href="javascript:;">
-                <i class="fa fa-tasks"></i>
-                <span class="link-title">业务员</span>
-                <span class="fa arrow"></span>
-            </a>
-            <ul>
+        <c:forEach items="${sessionScope.SPRING_SECURITY_CONTEXT.authentication.authorities}" var="roleInfo">
+            <c:if test="${roleInfo eq 'ROLE_ADMIN' || roleInfo eq 'ROLE_USER'}">
                 <li>
-                    <a href="/user">
-                        <i class="fa fa-angle-left"></i>&nbsp; 业务员列表</a>
-                </li>
-                <li>
-                    <a href="/user/create">
-                        <i class="fa fa-angle-left"></i>&nbsp; 添加业务员</a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fa fa-angle-left"></i>&nbsp; 导入业务员信息</a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fa fa-angle-right"></i>&nbsp; 导出业务员信息</a>
-                </li>
+                    <a href="javascript:;">
+                        <i class="fa fa-tasks"></i>
+                        <span class="link-title">业务员</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="/user">
+                                <i class="fa fa-angle-left"></i>&nbsp; 业务员列表</a>
+                        </li>
+                        <c:if test="${roleInfo eq 'ROLE_ADMIN'}">
+                        <li>
+                            <a href="/user/create">
+                                <i class="fa fa-angle-left"></i>&nbsp; 添加业务员</a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-angle-left"></i>&nbsp; 导入业务员信息</a>
+                        </li>
+                        </c:if>
+                        <%--<li>
+                            <a href="#">
+                                <i class="fa fa-angle-right"></i>&nbsp; 导出业务员信息</a>
+                        </li>--%>
 
-            </ul>
-        </li>
-           <%-- </c:if>--%>
+                    </ul>
+                </li>
+            </c:if>
 
-            <%--<c:if test="${roleInfo eq 'ROLE_ADMIN' || roleInfo eq 'ROLE_LOAN'}">--%>
+            <c:if test="${roleInfo eq 'ROLE_ADMIN' || roleInfo eq 'ROLE_USER'}">
                 <li <%--<c:if test="${param.activeMenu eq 'loan'}">class="active" </c:if>--%>>
                     <a href="javascript:;">
                         <i class="fa fa-tasks"></i>
@@ -87,6 +89,8 @@
                         </li>
                     </ul>
                 </li>
+            </c:if>
+            <c:if test="${roleInfo eq 'ROLE_ADMIN'}">
             <li>
                 <a href="javascript:;">
                     <i class="fa fa-tasks"></i>
@@ -108,13 +112,17 @@
                     </li>
                 </ul>
             </li>
+            </c:if>
+            <c:if test="${roleInfo eq 'ROLE_ADMIN'||roleInfo eq 'ROLE_USER'}">
             <li>
                 <a href="/wayBill/statistics">
                     <i class="fa fa-table"></i>
                     <span class="link-title">&nbsp;运单统计</span>
                 </a>
             </li>
-        <%--</c:forEach>--%>
+            </c:if>
+
+        </c:forEach>
     </ul>
     <!-- /#menu -->
 </div>

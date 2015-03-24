@@ -32,16 +32,6 @@
                 <div class="dataTables_wrapper form-inline no-footer">
                     <div class="row">
                         <br/>
-
-                        <div class="col-xs-4">
-                            <div id="dataTable_filter" class="dataTables_filter"><label>订单号： <input id="awb"
-                                                                                                    type="search"
-                                                                                                    name="awb"
-                                                                                                    class="form-control input-sm"
-                                                                                                    aria-controls="dataTable"/>
-                            </label>
-                            </div>
-                        </div>
                         <div class="col-xs-4">
                             <div id="dataTable_filter" class="dataTables_filter"><label>区域： <input id="area"
                                                                                                    type="search"

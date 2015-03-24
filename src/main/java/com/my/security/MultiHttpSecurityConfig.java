@@ -1,6 +1,7 @@
 package com.my.security;
 
 import com.my.core.repository.UserRepository;
+import com.my.core.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -33,7 +34,7 @@ public class MultiHttpSecurityConfig {
     public static class WebsiteUserCenterSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
 
         @Autowired
-        private UserRepository userRepository;
+        private UserService userService;
         @Autowired
         private WebsiteUserDetailService userDetailService;
 
@@ -50,23 +51,28 @@ public class MultiHttpSecurityConfig {
         protected void configure(HttpSecurity http) throws Exception {
             http
                     .authorizeRequests()
-                        .antMatchers("/user_center/**", "/order/**", "/pay_center/**")
-                        .hasRole("USER")
+                        .antMatchers("/index/**")
+                        .hasAnyRole("ADMIN", "USER")
+                        .antMatchers( "/wayBill/delete")
+                        .hasAnyRole("ADMIN")
+                        .antMatchers( "/wayBill/**")
+                        .hasAnyRole("ADMIN", "USER")
+                        .antMatchers("/user","/user/list")
+                        .hasAnyRole("ADMIN", "USER")
+                        .antMatchers("/user/**")
+                        .hasAnyRole("ADMIN")
+                        .antMatchers("/handlingCost/**")
+                        .hasAnyRole("ADMIN", "USER")
                         .and()
                     .formLogin()
-                        .loginPage("/user_center/login")
-                        .successHandler(new WebsiteAuthenticationSuccessHandler(userRepository, "/", false, "callBackUrl"))
-                        .failureHandler(new WebsiteAuthenticationFailureHandler("/user_center/login?error", "callBackUrl"))
+                        .loginPage("/admin/login")
+                        .successHandler(new WebsiteAuthenticationSuccessHandler(userService, "/", false, "callBackUrl"))
+                        .failureHandler(new WebsiteAuthenticationFailureHandler("/login?error", "callBackUrl"))
                         .permitAll()
                         .and()
                     .logout()
-                        .logoutUrl("/user_center/logout")
-                        .logoutSuccessUrl("/")
-                        .and()
-                    .rememberMe()
-                        .key("JIU88-REMEMBERME")
-                        .rememberMeServices(new TokenBasedRememberMeServices("JIU88-REMEMBERME", userDetailService))
-                        .authenticationSuccessHandler(new RememberMeAuthenticationSuccessHandler(userRepository));
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/index");
         }
     }
 }

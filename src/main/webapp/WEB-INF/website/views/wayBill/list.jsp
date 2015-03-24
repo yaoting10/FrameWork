@@ -156,7 +156,9 @@
                 if(columns[i].id == "id"){
                     var operation = "";
                     operation +=  '<a class="btn btn-info btn-xs btn-line" href="/wayBill/edit?wayBillId='+record.id+'">编辑</a> &nbsp&nbsp';
-                    operation +=  '<a class="btn btn-info btn-xs btn-line" onclick="deleteWayBill('+record.id+')">删除</a>';
+                    <c:if test="${roleInfo eq 'ROLE_ADMIN'}">
+                        operation +=  '<a class="btn btn-info btn-xs btn-line" onclick="deleteWayBill('+record.id+')">删除</a>';
+                    </c:if>
                     record.id = operation;
                 }
 

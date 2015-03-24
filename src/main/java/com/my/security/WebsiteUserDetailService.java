@@ -1,11 +1,19 @@
 package com.my.security;
 
 import com.google.common.collect.Lists;
+import com.my.Utils.ErrorCode;
+import com.my.Utils.RespondableException;
+import com.my.core.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.Objects;
 
 /**
  * user:yt
@@ -14,21 +22,25 @@ import org.springframework.stereotype.Component;
 @Component
 public class WebsiteUserDetailService implements UserDetailsService {
 
-
+    @Autowired
+    private UserService userService;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String userNumber) throws UsernameNotFoundException {
 
-        SimpleGrantedAuthority grantedAuthority = new SimpleGrantedAuthority("ROLE_USER");
-        org.springframework.security.core.userdetails.User securityUser =
-                new org.springframework.security.core.userdetails.User(
-                        username,
-                        "123",
-                        true,
-                        true,
-                        true,
-                        true,
-                        Lists.newArrayList(grantedAuthority));
-        return securityUser;
+        com.my.core.domain.User consumer = userService.findByUserNumber(userNumber);
+        if(Objects.isNull(consumer)){
+            throw new RespondableException(ErrorCode.NO_SUCH_USER, "Unable to find consumer " + userNumber);
+        }
+        List authorities = Lists.newArrayList();
+        SimpleGrantedAuthority authority;
+        if(consumer.getUserType() ==1){
+            authority = new SimpleGrantedAuthority("ROLE_ADMIN");
+        }else {
+            authority = new SimpleGrantedAuthority("ROLE_USER");
+        }
+        authorities.add(authority);
+        User user = new User(consumer.getUserNumber(), consumer.getPassword(), true, true, true, true, authorities);
+        return user;
     }
 }
