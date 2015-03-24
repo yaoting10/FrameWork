@@ -8,7 +8,9 @@ import com.my.core.service.HandingCostService;
 import com.my.core.service.UserService;
 import com.my.core.service.WayBillService;
 import com.my.website.controller.vo.WayBillQueryVo;
+import com.my.website.controller.vo.WayBillStatisticsVo;
 import com.my.website.controller.vo.WayBillVo;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -146,6 +148,31 @@ public class WaybillController {
         return null;
     }
 
+    @RequestMapping(value = "/statistics",method = RequestMethod.GET)
+    public ModelAndView goStatisticsPage(){
+        ModelAndView modelAndView = new ModelAndView("wayBill/statistics");
+        return modelAndView;
+    }
 
+    @RequestMapping(value = "/statistics/list",method = RequestMethod.GET)
+    public @ResponseBody PageableResponse statisticsList(String queryDate) {
+        try {
+            Long now =ModelUtils.currentMillis();
+            Long beginDate =0L;/*TimeUtils.subMonths(ModelUtils.getBeforeDaysMillis(now), 1)*/
+            Long endDate = now;
+            if(StringUtils.isNotBlank(queryDate)){
+                beginDate = ModelUtils.parseToDate(queryDate.split("/")[0]);
+                endDate = ModelUtils.parseToDate(queryDate.split("/")[1]);
+            }
+            List<WayBillStatisticsVo> companyVos = wayBillService.statisticForCompany(beginDate, endDate);
+            List<WayBillStatisticsVo> wayBillStatisticsVos = wayBillService.statisticWayBill(beginDate, endDate);
 
+            companyVos.addAll(wayBillStatisticsVos);
+
+            return PageableResponse.of(companyVos, companyVos.size(), Long.valueOf(companyVos.size()));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return PageableResponse.of(new ArrayList<>(), 0, 0L);
+    }
 }

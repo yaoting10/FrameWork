@@ -15,7 +15,7 @@
     <%@ include file="/WEB-INF/website/views/common/header.jsp" %>
 </head>
 <body>
-<div class="bg-light lter" id="wrap">
+<div class="bg-light lter">
     <%@ include file="/WEB-INF/website/views/common/top.jsp"%>
     <%@ include file="/WEB-INF/website/views/common/left.jsp" %>
     <div id="content">
@@ -35,10 +35,10 @@
 
                         <div class="col-xs-4">
                             <div id="dataTable_filter" class="dataTables_filter"><label>订单号： <input id="awb"
-                                                                                                   type="search"
-                                                                                                   name="awb"
-                                                                                                   class="form-control input-sm"
-                                                                                                   aria-controls="dataTable"/>
+                                                                                                    type="search"
+                                                                                                    name="awb"
+                                                                                                    class="form-control input-sm"
+                                                                                                    aria-controls="dataTable"/>
                             </label>
                             </div>
                         </div>
@@ -53,10 +53,10 @@
                         </div>
                         <div class="col-xs-4">
                             <div id="dataTable_filter" class="dataTables_filter"><label>业务员编号： <input id="userNumber"
-                                                                                                   type="search"
-                                                                                                   name="userNumber"
-                                                                                                   class="form-control input-sm"
-                                                                                                   aria-controls="dataTable"/>
+                                                                                                      type="search"
+                                                                                                      name="userNumber"
+                                                                                                      class="form-control input-sm"
+                                                                                                      aria-controls="dataTable"/>
                             </label>
                             </div>
                         </div>
@@ -81,33 +81,24 @@
                 <div class="row">
                     <br/>
                 </div>
-                <table id="wayBill_table" class="table table-bordered table-striped">
+                <table id="statistics_table" class="table table-bordered table-striped">
                     <thead>
-                    <th class="whitecustumer" data-dynatable-column="awb" data-dynatable-column>
-                        订单号
-                    </th>
-                    <th class="whitecustumer" data-dynatable-column="weight">
-                        重量
-                    </th>
-                    <th class="whitecustumer" data-dynatable-column="address">
-                        详细地址
-                    </th>
-                    <th class="whitecustumer" data-dynatable-column="area">
-                        区域
-                    </th>
-                    <th class="whitecustumer" data-dynatable-column="createDate">
-                        订单时间
-                    </th>
-                    <th class="whitecustumer" data-dynatable-column="userNumber">
+
+                    <th class="whitecustumer" data-dynatable-column="userNumber" data-dynatable-column>
                         业务员编号
                     </th>
-                    <th class="whitecustumer" data-dynatable-column="type">
-                        运输方式
+                    <th class="whitecustumer" data-dynatable-column="wayBillCount">
+                        总单数
                     </th>
                     <th class="whitecustumer" data-dynatable-column="totalPrice">
-                        中转费
+                        总中转费
                     </th>
-                    <th class="whitecustumer" data-dynatable-column="id">操作</th>
+                    <th class="whitecustumer" data-dynatable-column="handlingCost">
+                        总操作费
+                    </th>
+                    <th class="whitecustumer" data-dynatable-column="addedWeigh">
+                        总续重费
+                    </th>
                     </thead>
                     <tbody>
                     </tbody>
@@ -119,10 +110,6 @@
     <!-- /.outer -->
 </div>
 <!-- /#content -->
-<form id="deleteForm" action="/wayBill/delete" method="post">
-    <input hidden="true" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-    <input hidden="true" id="id" name="id"/>
-</form>
 </div>
 <%@ include file="/WEB-INF/website/views/common/footer.jsp" %>
 
@@ -153,69 +140,36 @@
         function userRowWriter(rowIndex, record, columns, cellWriter) {
             var tr = '';
             for (var i = 0, len = columns.length; i < len; i++) {
-                if(columns[i].id == "id"){
-                    var operation = "";
-                    operation +=  '<a class="btn btn-info btn-xs btn-line" href="/wayBill/edit?wayBillId='+record.id+'">编辑</a> &nbsp&nbsp';
-                    operation +=  '<a class="btn btn-info btn-xs btn-line" onclick="deleteWayBill('+record.id+')">删除</a>';
-                    record.id = operation;
-                }
-
-                if(columns[i].id =="type"){
-                    if(record.type ==2){
-                        record.type = "空运";
-                    }
-                    if(record.type ==1){
-                        record.type = "汽运";
-                    }
-                }
 
                 if(columns[i].id =="totalPrice"){
                     record.totalPrice = record.totalPrice.toFixed(2) +" 元";
                 }
 
-                if(columns[i].id == "createDate"){
-                    record.createDate =swtichDate(record.createDate,"date");
-
+                if(columns[i].id =="handlingCost"){
+                    record.handlingCost = record.handlingCost.toFixed(2) +" 元";
                 }
 
+                if(columns[i].id =="addedWeigh"){
+                    record.addedWeigh = record.addedWeigh.toFixed(2) +" 元";
+                }
                 tr += cellWriter(columns[i], record);
             }
 
             return '<tr>' + tr + '</tr>';
         }
 
-        var dynatable = $('#wayBill_table').dynatable({
+        var dynatable = $('#statistics_table').dynatable({
             table: {
                 bodyRowSelector: 'td'
             },
             dataset: {
-                ajaxUrl: '/wayBill/list'
+                ajaxUrl: '/wayBill/statistics/list'
             },
             writers: {
                 _rowWriter: userRowWriter
             }
         }).data('dynatable');
         $("#serachCondition").click(function () {
-            var area = $("#area").val();
-            if (area == "") {
-                dynatable.queries.remove("area");
-            } else {
-                dynatable.queries.add("area",area);
-            }
-            var awb = $("#awb").val();
-            if (awb == "") {
-                dynatable.queries.remove("awb");
-            } else {
-                dynatable.queries.add("awb",awb);
-            }
-
-            var userNumber = $("#userNumber").val();
-            if (userNumber == "") {
-                dynatable.queries.remove("userNumber");
-            } else {
-                dynatable.queries.add("userNumber",userNumber);
-            }
-
             var queryDate = $("#queryDate").val();
             if (queryDate == "") {
                 dynatable.queries.remove("queryDate");
@@ -226,48 +180,4 @@
             $("#queryDate").val("");
         });
     });
-
-    Date.prototype.format = function(format){
-        var o = {
-            "M+" : this.getMonth()+1, //month
-            "d+" : this.getDate(), //day
-            "D+" : this.getDate()-1, //day
-            "h+" : this.getHours(), //hour
-            "H+" : this.getHours()-8, //hour
-            "m+" : this.getMinutes(), //minute
-            "s+" : this.getSeconds(), //second
-            "q+" : Math.floor((this.getMonth()+3)/3), //quarter
-            "S" : this.getMilliseconds() //millisecond
-        }
-
-        if(/(y+)/.test(format)) {
-            format = format.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
-        }
-
-        for(var k in o) {
-            if(new RegExp("("+ k +")").test(format)) {
-                format = format.replace(RegExp.$1, RegExp.$1.length==1 ? o[k] : ("00"+ o[k]).substr((""+ o[k]).length));
-            }
-        }
-        return format;
-    }
-    //-------------------------格式化日期（结束）----------------------------------------------//
-
-    function swtichDate(millisecond,type){
-        var nowDate = new Date();
-        nowDate.setTime(millisecond);
-        if(type == "date"){
-            nowDate = nowDate.format("yyyy-MM-dd");
-        }else if(type == "day"){
-            nowDate = restTime(millisecond);
-        }else{
-            return;
-        }
-        return nowDate;
-    }
-
-    function deleteWayBill(id){
-        $("#id").val(id);
-        $("#deleteForm").submit();
-    }
 </script>

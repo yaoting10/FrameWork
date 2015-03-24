@@ -10,6 +10,7 @@ import com.my.core.service.HandingCostService;
 import com.my.core.service.UserService;
 import com.my.core.service.WayBillService;
 import com.my.website.controller.vo.WayBillQueryVo;
+import com.my.website.controller.vo.WayBillStatisticsVo;
 import com.my.website.controller.vo.WayBillVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -77,7 +78,7 @@ public class WayBillServiceImpl implements WayBillService{
         wayBill.setCost(handlingCost);
         wayBill.setType(wayBillVo.getType());
         wayBill = PriceUtill.getPrice(wayBill,wayBillVo.getType(),handlingCost);
-        wayBillListRepository.save(wayBill);
+        wayBillRepository.save(wayBill);
         return  StatusResponse.success();
     }
 
@@ -147,5 +148,15 @@ public class WayBillServiceImpl implements WayBillService{
 
         }
         return StatusResponse.success();
+    }
+
+    @Override
+    public List<WayBillStatisticsVo> statisticWayBill(Long beginDate, Long endDate) {
+        return wayBillListRepository.statisticsWayBill(beginDate, endDate);
+    }
+
+    @Override
+    public List<WayBillStatisticsVo> statisticForCompany(Long beginDate, Long endDate) {
+        return wayBillListRepository.statisticsCompany(beginDate, endDate);
     }
 }
