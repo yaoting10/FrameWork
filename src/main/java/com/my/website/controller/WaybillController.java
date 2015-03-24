@@ -23,10 +23,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import static com.my.Utils.PoiUtill.*;
 
 /**
  * Created with ECCS
@@ -175,4 +178,53 @@ public class WaybillController {
         }
         return PageableResponse.of(new ArrayList<>(), 0, 0L);
     }
+
+
+    @RequestMapping(value = "/export",method = RequestMethod.GET)
+    public ModelAndView goExportPage(){
+        ModelAndView modelAndView = new ModelAndView("wayBill/export");
+        return modelAndView;
+    }
+
+    /**
+     * excel导出接口
+     * @param response
+     */
+    @RequestMapping(value = "/export",method = RequestMethod.POST)
+    public void excelDownLoad(String from, String to, HttpServletResponse response, ExportCategory exportCategory) throws Exception{
+        response.addHeader("Content-Disposition", String.format("attachment; filename=%s_%s_%s.xls", exportCategory, from, to));
+        response.setContentType("application/octet-stream;charset=GB2312");
+        response.setCharacterEncoding("GB2312");
+        try{
+            String[] strings={"123"} ;
+            List<List> lists=new ArrayList<List>();
+            List simList=new ArrayList();
+            simList.add(1);
+            lists.add(simList);
+            OutputStream out=response.getOutputStream();
+            PoiUtill.writeExcel(out, strings, lists, "测试");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+    private Long parseFrom(String from) throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return simpleDateFormat.parse(from).getTime();
+    }
+
+    private Long parseTo(String to) throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = simpleDateFormat.parse(to);
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.add(Calendar.DATE, 1);
+        c.add(Calendar.MILLISECOND, -1);
+        return c.getTime().getTime();
+    }
+
+    public enum ExportCategory {
+        STATISTICS, WAY_BILL;
+    }
+
 }

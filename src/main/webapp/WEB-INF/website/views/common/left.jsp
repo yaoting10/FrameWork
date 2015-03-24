@@ -121,7 +121,14 @@
                 </a>
             </li>
             </c:if>
-
+            <c:if test="${roleInfo eq 'ROLE_ADMIN'||roleInfo eq 'ROLE_USER'}">
+                <li>
+                    <a href="/wayBill/export">
+                        <i class="fa fa-table"></i>
+                        <span class="link-title">&nbsp;数据导出</span>
+                    </a>
+                </li>
+            </c:if>
         </c:forEach>
     </ul>
     <!-- /#menu -->

@@ -68,19 +68,4 @@ public class PoiTest {
         return list;
 
     }
-
-    @RequestMapping("/xlsDto2Excel")
-    public static void xlsDto2Excel() throws Exception {
-        List<List> list=new ArrayList<List>();
-        List list1=new ArrayList();
-        list1.add(1);
-        list1.add(2);
-        list.add(list1);
-        List list2=new ArrayList();
-        list2.add(3);
-        list2.add(4);
-        list.add(list2);
-        String[] str={"测试","测试2"};
-        PoiUtill.writeExcel(str,list,"测试");
-    }
 }
