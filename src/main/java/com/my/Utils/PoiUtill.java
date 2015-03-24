@@ -62,9 +62,9 @@ public class PoiUtill {
                 for (int i=0;i<cell;i++){
                     Cell xh = hssfRow.getCell(i);
                     if (xh == null) {
-                        cellList.add(xh);
                         continue;
                     }
+                    cellList.add(xh);
                 }
                 list.add(cellList);
             }
@@ -79,7 +79,7 @@ public class PoiUtill {
      * @param excelName excel名字
      * @throws Exception
      */
-    public static void writeExcel(String[] names,List<List> list,String excelName) throws Exception {
+    public static void writeExcel(OutputStream out,String[] names,List<List> list,String excelName) throws Exception {
         // 创建Excel文档
         Workbook hwb = new XSSFWorkbook();
         // sheet 对应一个工作页
@@ -104,7 +104,7 @@ public class PoiUtill {
             }
         }
         // 创建文件输出流，准备输出电子表格
-        OutputStream out = new FileOutputStream("d:/eccsExcel/"+excelName+".xls");
+//        OutputStream out = new FileOutputStream("d:/eccsExcel/"+excelName+".xls");
         hwb.write(out);
         out.close();
     }

@@ -103,7 +103,6 @@ public class WayBillServiceImpl implements WayBillService{
                 int type = 0;
                 for (int j = 0; j < excelList.get(i).size(); j++) {
                     String str = excelList.get(i).get(j) + "";
-                    str = str.replace(str, " ");
                     switch (j) {
                         case 0:
                             wayBill.setAwb(str);

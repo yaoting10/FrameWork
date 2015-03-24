@@ -53,7 +53,7 @@ public class WayBill {
     /**
      * 地址
      */
-    @Column(name="address",length = 600,nullable = false)
+    @Column(name="address",length = 600)
     private String address;
     /**
      * 订单时间

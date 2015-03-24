@@ -27,14 +27,14 @@
     <hr>
     <div class="tab-content">
         <div id="login" class="tab-pane active">
-            <form action="/admin/login" method="post">
+            <form action="/" method="post">
                 <p class="text-muted text-center">
                     <!--Enter your username and password-->
                     <c:if test="${not empty sessionScope.SPRING_SECURITY_LAST_EXCEPTION}">
-                        <span class="error">用户名密码错误</span>
+                        <span class="error">业务员编号密码错误</span>
                     </c:if>
                     <c:if test="${empty sessionScope.SPRING_SECURITY_LAST_EXCEPTION}">
-                        <span>请输入用户名和密码</span>
+                        <span>请输入业务员编号和密码</span>
                     </c:if>
                 </p>
                 <input type="text" placeholder="用户名" class="form-control top" id="username" name="username">

@@ -163,10 +163,10 @@
                 }
 
                 if(columns[i].id =="type"){
-                    if(record.type ==1){
+                    if(record.type ==2){
                         record.type = "空运";
                     }
-                    if(record.type ==2){
+                    if(record.type ==1){
                         record.type = "汽运";
                     }
                 }
