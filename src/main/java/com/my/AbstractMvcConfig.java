@@ -60,7 +60,7 @@ public abstract class AbstractMvcConfig extends WebMvcConfigurationSupport{
     public void addResourceHandlers(ResourceHandlerRegistry registry){
         registry.addResourceHandler(BASE_RESOURCE_HANDLER, String.format(RESOURCE_HANDLER, resourceContext()))
                 .addResourceLocations(BASE_RESOURCE_LOCATION, String.format(RESOURCE_LOCATION, resourceContext()))
-                .setCachePeriod(3600);
+                .setCachePeriod(31556926);
     }
 
     @Override

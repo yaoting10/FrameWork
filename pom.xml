@@ -19,8 +19,8 @@
         <dataSource.password>123</dataSource.password>
 
         <hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
-        <hibernate.hbm2ddl.auto>update</hibernate.hbm2ddl.auto>
-        <hibernate.show.sql>true</hibernate.show.sql>
+        <hibernate.hbm2ddl.auto>none</hibernate.hbm2ddl.auto>
+        <hibernate.show.sql>false</hibernate.show.sql>
     </properties>
 
     <profiles>
