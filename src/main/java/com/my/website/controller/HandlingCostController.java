@@ -72,7 +72,6 @@ public class HandlingCostController {
             e.printStackTrace();
             return new ModelAndView("error/error").addObject("errorMsg", "第"+num+1+"行代码价格必须是整数或小数。");
         }
-        return null;
     }
 
     @RequestMapping(value = "/create",method = RequestMethod.GET)
