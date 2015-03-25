@@ -4,6 +4,7 @@ import com.my.Utils.*;
 import com.my.core.domain.HandlingCost;
 import com.my.core.domain.User;
 import com.my.core.domain.WayBill;
+import com.my.core.service.ExportService;
 import com.my.core.service.HandingCostService;
 import com.my.core.service.UserService;
 import com.my.core.service.WayBillService;
@@ -46,6 +47,9 @@ public class WaybillController {
     private UserService userService;
     @Resource
     private HandingCostService handingCostService;
+
+    @Autowired
+    private ExportService exportService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ModelAndView wayBill() {
@@ -135,7 +139,7 @@ public class WaybillController {
      * @return
      */
     @RequestMapping(value = "/import",method = RequestMethod.POST)
-    public StatusResponse addExcelWayBill(MultipartFile file){
+    public ModelAndView addExcelWayBill(MultipartFile file){
         List<User> users=this.userService.findAll();
         List <HandlingCost> handlingCosts=this.handingCostService.findHandlingCosts();
         Map<String,User>userMap=new HashMap<String,User>();
@@ -146,9 +150,10 @@ public class WaybillController {
         for(User user:users){
            userMap.put(user.getUserNumber(),user);
         }
-        this.wayBillService.addWayBill(userMap,handlingCostMap,file);
-
-        return null;
+        StatusResponse response = this.wayBillService.addWayBill(userMap,handlingCostMap,file);
+        if(response.getCode()!=ErrorCode.SUCCESSFUL)
+            return new ModelAndView("error/error").addObject("errorMsg", response.getData().toString());
+        return new ModelAndView("redirect:/wayBill");
     }
 
     @RequestMapping(value = "/statistics",method = RequestMethod.GET)
@@ -196,13 +201,10 @@ public class WaybillController {
         response.setContentType("application/octet-stream;charset=GB2312");
         response.setCharacterEncoding("GB2312");
         try{
-            String[] strings={"123"} ;
-            List<List> lists=new ArrayList<List>();
-            List simList=new ArrayList();
-            simList.add(1);
-            lists.add(simList);
-            OutputStream out=response.getOutputStream();
-            PoiUtill.writeExcel(out, strings, lists, "测试");
+            switch (exportCategory){
+                case STATISTICS : exportService.exportStatisticsVo(parseFrom(from), parseFrom(to), response.getOutputStream());break;
+                case WAY_BILL : exportService.exportWayBill(parseFrom(from), parseFrom(to), response.getOutputStream());break;
+            }
         }catch (Exception e){
             e.printStackTrace();
         }

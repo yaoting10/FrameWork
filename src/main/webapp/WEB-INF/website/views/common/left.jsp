@@ -22,8 +22,9 @@
             <div class="media-body">
                 <h5 class="media-heading">用户名</h5>
                 <ul class="list-unstyled user-info">
-                    <li><a href="">${sessionScope.user.userName}</a></li>
-                    <%--<li>Last Access :--%>
+                    <li><a href="">欢迎: ${sessionScope.user.userName} !</a> </li>
+                    <li></li>
+
                     <%--<br>--%>
                     <%--<small>--%>
                     <%--<i class="fa fa-calendar"></i>&nbsp;16 Mar 16:32</small>--%>

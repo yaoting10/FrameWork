@@ -32,7 +32,7 @@
                 <div class="dataTables_wrapper form-inline no-footer">
                     <div class="row">
                         <br/>
-                        <div class="col-xs-4">
+                        <%--<div class="col-xs-4">
                             <div id="dataTable_filter" class="dataTables_filter"><label>区域： <input id="area"
                                                                                                    type="search"
                                                                                                    name="area"
@@ -49,7 +49,7 @@
                                                                                                       aria-controls="dataTable"/>
                             </label>
                             </div>
-                        </div>
+                        </div>--%>
 
                         <div class="col-xs-4">
                             <div id="dataTable_filter" class="dataTables_filter"><label>运单时间：

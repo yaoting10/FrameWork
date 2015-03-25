@@ -9,6 +9,7 @@ import com.my.core.repository.WayBillRepository;
 import com.my.core.service.HandingCostService;
 import com.my.core.service.UserService;
 import com.my.core.service.WayBillService;
+import com.my.website.controller.vo.WayBillExportVo;
 import com.my.website.controller.vo.WayBillQueryVo;
 import com.my.website.controller.vo.WayBillStatisticsVo;
 import com.my.website.controller.vo.WayBillVo;
@@ -161,7 +162,7 @@ public class WayBillServiceImpl implements WayBillService{
     }
 
     @Override
-    public List<WayBill> exportWayBill(Long beginDate, Long endDate) {
+    public List<WayBillExportVo> exportWayBill(Long beginDate, Long endDate) {
         return wayBillListRepository.exportWayBill(beginDate, endDate);
     }
 }

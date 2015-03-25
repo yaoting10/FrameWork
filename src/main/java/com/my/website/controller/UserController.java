@@ -51,6 +51,10 @@ public class UserController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ModelAndView create(UserVo vo) {
         ModelAndView modelAndView = new ModelAndView("user/userList");
+        User user = userService.findByUserNumber(vo.getUserNumber());
+        if(!Objects.isNull(user))
+            return new ModelAndView("error/error").addObject("errorMsg","业务员编号已经存在");
+
         userService.save(User.of(vo));
         return modelAndView;
     }

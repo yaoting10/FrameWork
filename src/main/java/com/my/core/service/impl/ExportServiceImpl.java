@@ -39,7 +39,7 @@ public class ExportServiceImpl implements ExportService{
         List<WayBillStatisticsVo> wayBillList = wayBillService.statisticWayBill(from, to);
         List<WayBillStatisticsVo> companyList = wayBillService.statisticForCompany(from, to);
         companyList.addAll(wayBillList);
-        String [] names = new String[]{"业务员编号","运单数量", "中转费总额", "操作费总额", "续重费总额"};
+        String [] names = new String[]{"业务员编号", "运单数量", "中转费总额", "操作费总额", "续重费总额"};
         PoiUtill<WayBillStatisticsVo> excel = new PoiUtill<>();
         excel.writeExcel(out, names, companyList, "运单");
         return companyList;

@@ -36,11 +36,11 @@ public class WayBillExportVo {
     @JsonProperty("handlingCost")
     private String handlingCost = "";
 
-    @JsonProperty("totalPrice")
-    private String totalPrice = "";
-
     @JsonProperty("addedWeigh")
     private String addedWeigh = "";
+
+    @JsonProperty("totalPrice")
+    private String totalPrice = "";
 
     public static WayBillExportVo of(Object[] objects){
         WayBillExportVo vo = new WayBillExportVo();
@@ -58,17 +58,17 @@ public class WayBillExportVo {
             vo.setCreateTime(TimeUtils.millisToDateTime(Long.valueOf(objects[5].toString()), "yyyy-MM-dd"));
         if(objects[6]!= null){
             if(objects[6].toString().equals("1")){
-                vo.setArea("汽运");
+                vo.setType("汽运");
             }else if(objects[6].toString().equals("2")){
-                vo.setArea("空运");
+                vo.setType("空运");
             }
         }
         if(objects[7]!= null)
-            vo.setArea(objects[7].toString());
+            vo.setHandlingCost(objects[7].toString());
         if(objects[8]!= null)
-            vo.setArea(objects[8].toString());
+            vo.setAddedWeigh(objects[8].toString());
         if(objects[9]!= null)
-            vo.setArea(objects[9].toString());
+            vo.setTotalPrice(objects[9].toString());
         return vo;
     }
 }

@@ -90,13 +90,13 @@ public class PoiUtill<T> {
 
         HSSFSheet sheet = workbook.createSheet(excelName);
 
+        sheet.setDefaultColumnWidth((short) 15);
+
         // sheet 对应一个工作页
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         HSSFRow row = sheet.createRow(0); // 下标为0的行开始
-        Cell[] firstcell = new Cell[names.length];
         for (int j = 0; j < names.length; j++) {
-            firstcell[j] = row.createCell(j);
-            firstcell[j].setCellValue(new XSSFRichTextString(names[j]));
+            HSSFCell cell = row.createCell(j);
+            cell.setCellValue(new HSSFRichTextString(names[j]));
         }
 
         Iterator<T> it = list.iterator();
@@ -141,13 +141,19 @@ public class PoiUtill<T> {
 
                     //判断值的类型后进行强制类型转换
 
-                    String textValue = null;
-
-                    textValue = value.toString();
+                    String textValue = value.toString();
 
                     HSSFRichTextString richString = new HSSFRichTextString(textValue);
 
+                    HSSFFont font3 = workbook.createFont();
+
+                    font3.setColor(HSSFColor.BLUE.index);
+
+                    richString.applyFont(font3);
+
                     cell.setCellValue(richString);
+
+
 
         /*for (int i = 0; i < list.size(); i++) {
             // 创建一行
@@ -163,13 +169,13 @@ public class PoiUtill<T> {
         }*/
                     // 创建文件输出流，准备输出电子表格
 //        OutputStream out = new FileOutputStream("d:/eccsExcel/"+excelName+".xls");
-                    workbook.write(out);
+
                 }catch (Exception e){
                     e.printStackTrace();
-                }finally {
-                    out.close();
                 }
             }
         }
+
+        workbook.write(out);
     }
 }

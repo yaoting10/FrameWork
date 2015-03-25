@@ -31,7 +31,7 @@
                 <p class="text-muted text-center">
                     <!--Enter your username and password-->
                     <c:if test="${not empty sessionScope.SPRING_SECURITY_LAST_EXCEPTION}">
-                        <span class="error">业务员编号密码错误</span>
+                        <span style="color: red" class="error">业务员编号密码错误</span>
                     </c:if>
                     <c:if test="${empty sessionScope.SPRING_SECURITY_LAST_EXCEPTION}">
                         <span>请输入业务员编号和密码</span>
@@ -43,7 +43,6 @@
                 <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
             </form>
         </div>
-
     </div>
 </div>
 <script src="/resources/website/lib/jquery/jquery.min.js"></script>

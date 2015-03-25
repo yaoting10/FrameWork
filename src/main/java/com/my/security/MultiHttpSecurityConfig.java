@@ -67,7 +67,6 @@ public class MultiHttpSecurityConfig {
                     .formLogin()
                         .loginPage("/")
                         .successHandler(new WebsiteAuthenticationSuccessHandler(userService, "/index", false, "callBackUrl"))
-                        .failureHandler(new WebsiteAuthenticationFailureHandler("/", "callBackUrl"))
                         .permitAll()
                         .and()
                     .logout()
