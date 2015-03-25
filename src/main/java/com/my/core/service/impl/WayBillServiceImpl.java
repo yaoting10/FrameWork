@@ -159,4 +159,9 @@ public class WayBillServiceImpl implements WayBillService{
     public List<WayBillStatisticsVo> statisticForCompany(Long beginDate, Long endDate) {
         return wayBillListRepository.statisticsCompany(beginDate, endDate);
     }
+
+    @Override
+    public List<WayBill> exportWayBill(Long beginDate, Long endDate) {
+        return wayBillListRepository.exportWayBill(beginDate, endDate);
+    }
 }

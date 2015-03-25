@@ -4,6 +4,7 @@ import com.my.Utils.StatusResponse;
 import com.my.core.domain.HandlingCost;
 import com.my.core.domain.User;
 import com.my.core.domain.WayBill;
+import com.my.website.controller.vo.WayBillExportVo;
 import com.my.website.controller.vo.WayBillQueryVo;
 import com.my.website.controller.vo.WayBillStatisticsVo;
 import com.my.website.controller.vo.WayBillVo;
@@ -36,4 +37,6 @@ public interface WayBillService {
     List<WayBillStatisticsVo> statisticWayBill(Long beginDate, Long endDate);
 
     List<WayBillStatisticsVo> statisticForCompany(Long beginDate, Long endDate);
+
+    List<WayBillExportVo> exportWayBill(Long beginDate, Long endDate);
 }

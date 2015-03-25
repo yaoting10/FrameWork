@@ -5,6 +5,7 @@ import com.my.Utils.ModelUtils;
 import com.my.Utils.TimeUtils;
 import com.my.core.domain.WayBill;
 import com.my.core.repository.WayBillListRepository;
+import com.my.website.controller.vo.WayBillExportVo;
 import com.my.website.controller.vo.WayBillQueryVo;
 import com.my.website.controller.vo.WayBillStatisticsVo;
 import org.apache.commons.lang.StringUtils;
@@ -122,5 +123,24 @@ public class WayBillListRepositoryImpl extends SimpleJpaRepository<WayBill, Inte
         List<Object[]> objects = query.getResultList();
         List<WayBillStatisticsVo> voList = objects.stream().map(o -> WayBillStatisticsVo.ofComPany(o)).collect(Collectors.toList());
         return voList;
+    }
+
+    @Override
+    public List<WayBillExportVo> exportWayBill(Long beginDate, Long endDate) {
+        String sql = "SELECT w.awb, u.user_number, w.weight, w.address, h.area, w.create_time, w.type, w.handling_cost, w.added_weight, w.total" +
+                     " FROM t_waybll w LEFT JOIN t_user u ON w.fk_user_id = u.pk_id LEFT JOIN t_handling_cost h ON w.fk_handling_cost_id = h.pk_id " +
+                     " WHERE w.create_time >= :beginDate AND w.create_time < :endDate order by w.create_time desc ";
+        Map<String, Object> parameters = new HashMap<>();
+        if (!Objects.isNull(beginDate) && !Objects.isNull(endDate)) {
+            parameters.put("beginDate", beginDate);
+            parameters.put("endDate", endDate);
+        }
+        Query query = entityManager.createNativeQuery(sql);
+        for (String key : parameters.keySet()) {
+            query.setParameter(key, parameters.get(key));
+        }
+        List<Object[]> objects = query.getResultList();
+        List<WayBillExportVo> voList = objects.stream().map(o -> WayBillExportVo.of(o)).collect(Collectors.toList());
+        return  voList;
     }
 }

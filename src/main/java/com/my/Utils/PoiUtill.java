@@ -1,5 +1,7 @@
 package com.my.Utils;
 
+import org.apache.poi.hssf.usermodel.*;
+import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFRichTextString;
@@ -12,9 +14,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -25,7 +30,7 @@ import java.util.List;
  * @create Date: 2015-3-21 下午02:31:06
  * @version 1.0
  */
-public class PoiUtill {
+public class PoiUtill<T> {
 
     /**
      * 读写excel
@@ -79,19 +84,72 @@ public class PoiUtill {
      * @param excelName excel名字
      * @throws Exception
      */
-    public static void writeExcel(OutputStream out,String[] names,List<List> list,String excelName) throws Exception {
+    public void writeExcel(OutputStream out,String[] names,List<T> list,String excelName) throws Exception {
         // 创建Excel文档
-        Workbook hwb = new XSSFWorkbook();
+        HSSFWorkbook workbook = new HSSFWorkbook();
+
+        HSSFSheet sheet = workbook.createSheet(excelName);
+
         // sheet 对应一个工作页
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Sheet sheet = hwb.createSheet("中通快递");
-        Row firstrow = sheet.createRow(0); // 下标为0的行开始
+        HSSFRow row = sheet.createRow(0); // 下标为0的行开始
         Cell[] firstcell = new Cell[names.length];
         for (int j = 0; j < names.length; j++) {
-            firstcell[j] = firstrow.createCell(j);
+            firstcell[j] = row.createCell(j);
             firstcell[j].setCellValue(new XSSFRichTextString(names[j]));
         }
-        for (int i = 0; i < list.size(); i++) {
+
+        Iterator<T> it = list.iterator();
+
+        int index = 0;
+
+        while (it.hasNext()) {
+
+            index++;
+
+            row = sheet.createRow(index);
+
+            T t = (T) it.next();
+
+            //利用反射，根据javabean属性的先后顺序，动态调用getXxx()方法得到属性值
+
+            Field[] fields = t.getClass().getDeclaredFields();
+
+            for (int i = 0; i < fields.length; i++) {
+
+                HSSFCell cell = row.createCell(i);
+
+                Field field = fields[i];
+
+                String fieldName = field.getName();
+
+                String getMethodName = "get"
+
+                        + fieldName.substring(0, 1).toUpperCase()
+
+                        + fieldName.substring(1);
+
+                try {
+
+                    Class tCls = t.getClass();
+
+                    Method getMethod = tCls.getMethod(getMethodName,
+
+                            new Class[]{});
+
+                    Object value = getMethod.invoke(t, new Object[]{});
+
+                    //判断值的类型后进行强制类型转换
+
+                    String textValue = null;
+
+                    textValue = value.toString();
+
+                    HSSFRichTextString richString = new HSSFRichTextString(textValue);
+
+                    cell.setCellValue(richString);
+
+        /*for (int i = 0; i < list.size(); i++) {
             // 创建一行
             Row row = sheet.createRow(i + 1);
             // 得到要插入的每一条记录
@@ -102,10 +160,16 @@ public class PoiUtill {
                     xh.setCellValue(list.get(i).get(cell)+"");
                 }
             }
-        }
-        // 创建文件输出流，准备输出电子表格
+        }*/
+                    // 创建文件输出流，准备输出电子表格
 //        OutputStream out = new FileOutputStream("d:/eccsExcel/"+excelName+".xls");
-        hwb.write(out);
-        out.close();
+                    workbook.write(out);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }finally {
+                    out.close();
+                }
+            }
+        }
     }
 }

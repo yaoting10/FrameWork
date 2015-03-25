@@ -1,6 +1,7 @@
 package com.my.core.repository;
 
 import com.my.core.domain.WayBill;
+import com.my.website.controller.vo.WayBillExportVo;
 import com.my.website.controller.vo.WayBillQueryVo;
 import com.my.website.controller.vo.WayBillStatisticsVo;
 import org.springframework.data.domain.Page;
@@ -23,4 +24,6 @@ public interface WayBillListRepository extends JpaRepository<WayBill,Integer>{
     List<WayBillStatisticsVo> statisticsWayBill(Long beginDate, Long endDate);
 
     List<WayBillStatisticsVo> statisticsCompany(Long beginDate, Long endDate);
+
+    List<WayBillExportVo> exportWayBill(Long beginDate, Long endDate);
 }
