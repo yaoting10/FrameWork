@@ -42,10 +42,12 @@ public class HandlingCostController {
      */
     @RequestMapping(value = "/import",method = RequestMethod.POST)
     public ModelAndView addExcelHandlingCost(MultipartFile file){
+        int num=0;
         try {
             List <List>excelList=PoiUtill.readXls(file, 7);
             List<HandlingCost> addList=new ArrayList<HandlingCost>();
             for (int i=0;i<excelList.size();i++){
+                num=i;
                 HandlingCost cost = new HandlingCost();
                  for (int j=0;j<excelList.get(i).size();j++){
                    switch (j){
@@ -63,8 +65,12 @@ public class HandlingCostController {
             handingCostService.addHandingCost(addList);
             ModelAndView modelAndView = new ModelAndView("").addObject("");
             return modelAndView;
-        } catch (IOException e) {
+        }catch (IOException e){
             e.printStackTrace();
+            return new ModelAndView("error/error").addObject("errorMsg", "excel格式有误请检查。");
+        }catch (Exception e) {
+            e.printStackTrace();
+            return new ModelAndView("error/error").addObject("errorMsg", "第"+num+1+"行代码价格必须是整数或小数。");
         }
         return null;
     }
