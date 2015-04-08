@@ -4,7 +4,7 @@
 <html class="no-js">
 <head>
     <meta charset="UTF-8">
-    <title>订单详情</title>
+    <title>运单详情</title>
     <%@ include file="/WEB-INF/website/views/common/header.jsp" %>
     <style>
         .help-block{
@@ -21,10 +21,10 @@
             <div>
                 <ul class="breadcrumb">
                     <li>
-                        <a href="#">订单管理</a> <span class="divider">/</span>
+                        <a href="#">运单管理</a> <span class="divider">/</span>
                     </li>
                     <li>
-                        <a href="#">订单详情</a>
+                        <a href="#">运单详情</a>
                     </li>
                 </ul>
             </div>
@@ -54,7 +54,7 @@
                                 <form:form commandName="wayBill" method="post" id="wayBill"
                                            action="/wayBill/edit" class="form-horizontal">
                                     <div class="form-group row">
-                                        <label class="control-label col-lg-2">订单号：</label>
+                                        <label class="control-label col-lg-2">运单号：</label>
 
                                         <div class="col-lg-4">
                                             <input id="awb"
@@ -146,7 +146,7 @@
                                                    value="${wayBill.total}元"
                                                    class="form-control">
                                         </div>
-                                        <label class="control-label col-lg-2">订单时间：</label>
+                                        <label class="control-label col-lg-2">运单时间：</label>
                                         <div class="col-lg-4">
                                             <div class="input-group input-append date">
                                                 <span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>
@@ -206,6 +206,10 @@
                     validators: {
                         notEmpty: {
                             message: '运单号不能为空'
+                        },
+                        regexp:{
+                            message: '运单号不能大于12',
+                            regexp:'^\\w{1,12}$'
                         }
                     }
                 },
@@ -237,7 +241,7 @@
                     group: '.col-lg-2',
                     validators: {
                         notEmpty: {
-                            message: '订单时间不能为空'
+                            message: '运单时间不能为空'
                         }
                     }
                 }

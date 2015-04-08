@@ -7,6 +7,7 @@ import com.my.website.controller.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -78,6 +79,15 @@ public class UserController {
     public ModelAndView delete(Integer userId) {
         userService.delete(userId);
         ModelAndView modelAndView = new ModelAndView("redirect:/user");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/my", method = RequestMethod.GET)
+    public ModelAndView goMyInfo() {
+        org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User userInfo = userService.findByUserNumber(user.getUsername());
+        ModelAndView modelAndView = new ModelAndView("user/userInfo");
+        modelAndView.addObject("user", userInfo);
         return modelAndView;
     }
 }

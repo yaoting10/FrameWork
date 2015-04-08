@@ -122,6 +122,26 @@
                     operation +=  '<a class="btn btn-info btn-xs btn-line" onclick="deleteHandlingCost('+record.id+')">删除</a>';
                     record.id = operation;
                 }
+
+
+                if(columns[i].id =="airPrice"){
+                    record.airPrice = record.airPrice.toFixed(2) +" 元/kg";
+                }
+                if(columns[i].id =="ariLowPrice"){
+                    record.ariLowPrice = record.ariLowPrice.toFixed(2) +" 元";
+                }
+
+                if(columns[i].id =="carOperatePrice"){
+                    record.carOperatePrice = record.carOperatePrice.toFixed(2) +" 元";
+                }
+
+                if(columns[i].id =="carWeightPrice"){
+                    record.carWeightPrice = record.carWeightPrice.toFixed(2) +" 元/kg";
+                }
+                if(columns[i].id =="carLowPrice"){
+                    record.carLowPrice = record.carLowPrice.toFixed(2) +" 元";
+                }
+
                 tr += cellWriter(columns[i], record);
             }
 

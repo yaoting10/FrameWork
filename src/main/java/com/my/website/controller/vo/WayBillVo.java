@@ -20,6 +20,9 @@ public class WayBillVo {
     @JsonProperty("userNumber")
     private String userNumber;
 
+    @JsonProperty("userName")
+    private String userName;
+
     @JsonProperty("awb")
     private String awb;
 
@@ -60,6 +63,7 @@ public class WayBillVo {
         vo.setCreateDate(wayBill.getCreateTime());
         vo.setType(wayBill.getType());
         vo.setUserNumber(wayBill.getUser().getUserNumber());
+        vo.setUserName(wayBill.getUser().getUserName());
         vo.setWeight(wayBill.getWeight());
         vo.setAddedWeigh(wayBill.getAddedWeigh());
         vo.setHandlingCost(wayBill.getHandlingCost());

@@ -21,7 +21,6 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a href="#" class="navbar-brand">
-                    <img src="/resources/admin/img/logo.png" alt="">
                 </a>
             </header>
             <div class="navbar-title">ECCS后台管理系统</div>

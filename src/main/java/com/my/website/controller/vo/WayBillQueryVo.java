@@ -1,5 +1,6 @@
 package com.my.website.controller.vo;
 
+import com.my.core.domain.User;
 import lombok.Data;
 
 /**
@@ -9,6 +10,8 @@ import lombok.Data;
  */
 @Data
 public class WayBillQueryVo {
+
+    private Integer userId;
 
     private String queryDate;
 

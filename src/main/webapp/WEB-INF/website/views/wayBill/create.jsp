@@ -54,7 +54,7 @@
                                 <form:form commandName="wayBillVo" method="post" id="wayBill"
                                            action="/wayBill/create" class="form-horizontal">
                                     <div class="form-group row">
-                                        <label class="control-label col-lg-2">订单号：</label>
+                                        <label class="control-label col-lg-2">运单号：</label>
 
                                         <div class="col-lg-4">
                                             <input id="awb"
@@ -112,7 +112,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="control-label col-lg-2">订单时间：</label>
+                                        <label class="control-label col-lg-2">运单时间：</label>
                                         <div class="col-lg-4">
                                             <div class="input-group input-append date">
                                                 <span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>
@@ -171,6 +171,10 @@
                     validators: {
                         notEmpty: {
                             message: '运单号不能为空'
+                        },
+                        regexp:{
+                            message: '运单号不能大于12',
+                            regexp:'^\\w{1,12}$'
                         }
                     }
                 },
@@ -194,7 +198,7 @@
                     group: '.col-lg-2',
                     validators: {
                         notEmpty: {
-                            message: '订单时间不能为空'
+                            message: '运单时间不能为空'
                         }
                     }
                 }

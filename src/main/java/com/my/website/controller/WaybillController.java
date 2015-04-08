@@ -15,6 +15,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -51,9 +52,12 @@ public class WaybillController {
     @Autowired
     private ExportService exportService;
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public ModelAndView wayBill() {
         ModelAndView modelAndView = new ModelAndView("wayBill/list");
+        org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User userInfo = userService.findByUserNumber(user.getUsername());
+        modelAndView.addObject("user", userInfo);
         return modelAndView;
     }
 
@@ -66,6 +70,9 @@ public class WaybillController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public PageableResponse list(WayBillQueryVo vo, Pageable pageable) {
+        User user = userService.findOne(vo.getUserId());
+        if(user.getUserType() == 1)
+            vo.setUserId(null);
         try{
             Page<WayBill> wayBillPage = wayBillService.findByConditions(vo, pageable);
             List<WayBillVo> voList = new ArrayList<>();
@@ -99,8 +106,8 @@ public class WaybillController {
     public ModelAndView addWayBill(WayBillVo wayBillVo){
         StatusResponse statusResponse = this.wayBillService.save(wayBillVo);
 
-        if(statusResponse.getCode() != ErrorCode.NO_SUCH_USER)
-            return new ModelAndView("error").addObject("errorMsg", statusResponse.getData());
+        if(statusResponse.getCode() == ErrorCode.NO_SUCH_USER)
+            return new ModelAndView("error/error").addObject("errorMsg", statusResponse.getData());
 
         return new ModelAndView("redirect:/wayBill");
     }
@@ -210,6 +217,8 @@ public class WaybillController {
         }
 
     }
+
+
     private Long parseFrom(String from) throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return simpleDateFormat.parse(from).getTime();

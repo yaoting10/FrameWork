@@ -16,10 +16,10 @@
         <dataSource.driverClassName>com.mysql.jdbc.Driver</dataSource.driverClassName>
         <dataSource.url>jdbc:mysql://localhost:3306/ECCS</dataSource.url>
         <dataSource.username>root</dataSource.username>
-        <dataSource.password>123</dataSource.password>
+        <dataSource.password></dataSource.password>
 
         <hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
-        <hibernate.hbm2ddl.auto>none</hibernate.hbm2ddl.auto>
+        <hibernate.hbm2ddl.auto>update</hibernate.hbm2ddl.auto>
         <hibernate.show.sql>false</hibernate.show.sql>
     </properties>
 
@@ -27,7 +27,7 @@
         <profile>
             <id>prod</id>
             <properties>
-                <hibernate.hbm2ddl.auto>none</hibernate.hbm2ddl.auto>
+                <hibernate.hbm2ddl.auto>update</hibernate.hbm2ddl.auto>
                 <hibernate.show.sql>false</hibernate.show.sql>
             </properties>
         </profile>

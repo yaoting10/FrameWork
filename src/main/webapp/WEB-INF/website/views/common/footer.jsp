@@ -51,7 +51,7 @@
 <script src="/resources/website/lib/jquery.uniform/jquery.uniform.min.js"></script>
 <script src="/resources/website/lib/jasny-bootstrap/js/jasny-bootstrap.min.js"></script>
 <script src="/resources/website/lib/jquery-form/jquery.form.js"></script>
-<script src="/resources/website/lib/formwizard/jquery.form.wizard.js"></script>
+<%--<script src="/resources/website/lib/formwizard/jquery.form.wizard.js"></script>--%>
 <script src="/resources/website/lib/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="/resources/website/lib/jquery-validation/src/localization/messages_ja.js"></script>
 <script src="/resources/website/lib/holderjs/holder.js"></script>

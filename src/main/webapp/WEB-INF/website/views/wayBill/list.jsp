@@ -11,7 +11,7 @@
 <html class="no-js">
 <head>
     <meta charset="UTF-8">
-    <title>订单列表</title>
+    <title>运单列表</title>
     <%@ include file="/WEB-INF/website/views/common/header.jsp" %>
 </head>
 <body>
@@ -23,7 +23,7 @@
             <div>
                 <ul class="breadcrumb">
                     <li>
-                        <a href="#">订单列表</a>
+                        <a href="#">运单列表</a>
                     </li>
                 </ul>
             </div>
@@ -34,7 +34,7 @@
                         <br/>
 
                         <div class="col-xs-4">
-                            <div id="dataTable_filter" class="dataTables_filter"><label>订单号： <input id="awb"
+                            <div id="dataTable_filter" class="dataTables_filter"><label>运单号： <input id="awb"
                                                                                                    type="search"
                                                                                                    name="awb"
                                                                                                    class="form-control input-sm"
@@ -51,15 +51,17 @@
                             </label>
                             </div>
                         </div>
-                        <div class="col-xs-4">
-                            <div id="dataTable_filter" class="dataTables_filter"><label>业务员编号： <input id="userNumber"
-                                                                                                   type="search"
-                                                                                                   name="userNumber"
-                                                                                                   class="form-control input-sm"
-                                                                                                   aria-controls="dataTable"/>
-                            </label>
+                        <c:if test="${user.userType == 1}">
+                            <div class="col-xs-4">
+                                <div id="dataTable_filter" class="dataTables_filter"><label>业务员编号： <input id="userNumber"
+                                                                                                       type="search"
+                                                                                                       name="userNumber"
+                                                                                                       class="form-control input-sm"
+                                                                                                       aria-controls="dataTable"/>
+                                </label>
+                                </div>
                             </div>
-                        </div>
+                        </c:if>
 
                         <div class="col-xs-4">
                             <div id="dataTable_filter" class="dataTables_filter"><label>运单时间：
@@ -72,7 +74,7 @@
                             </label>
                             </div>
                         </div>
-                        <div class="col-xs-4">
+                        <div class="col-xs-2">
                             <a id="serachCondition"  class="btn btn-info btn-sm btn-line">搜索</a>
                         </div>
                     </div>
@@ -84,10 +86,16 @@
                 <table id="wayBill_table" class="table table-bordered table-striped">
                     <thead>
                     <th class="whitecustumer" data-dynatable-column="awb" data-dynatable-column>
-                        订单号
+                        运单号
                     </th>
                     <th class="whitecustumer" data-dynatable-column="weight">
                         重量
+                    </th>
+                    <th class="whitecustumer" data-dynatable-column="userNumber">
+                        业务员编号
+                    </th>
+                    <th class="whitecustumer" data-dynatable-column="userName">
+                        业务员姓名
                     </th>
                     <th class="whitecustumer" data-dynatable-column="address">
                         详细地址
@@ -97,9 +105,6 @@
                     </th>
                     <th class="whitecustumer" data-dynatable-column="createDate">
                         订单时间
-                    </th>
-                    <th class="whitecustumer" data-dynatable-column="userNumber">
-                        业务员编号
                     </th>
                     <th class="whitecustumer" data-dynatable-column="type">
                         运输方式
@@ -118,6 +123,7 @@
     </div>
     <!-- /.outer -->
 </div>
+<input hidden="true" id="userId" name="userId" value="${user.id}"/>
 <!-- /#content -->
 <form id="deleteForm" action="/wayBill/delete" method="post">
     <input hidden="true" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -155,8 +161,9 @@
             for (var i = 0, len = columns.length; i < len; i++) {
                 if(columns[i].id == "id"){
                     var operation = "";
-                    operation +=  '<a class="btn btn-info btn-xs btn-line" href="/wayBill/edit?wayBillId='+record.id+'">编辑</a> &nbsp&nbsp';
-                    <c:if test="${roleInfo eq 'ROLE_ADMIN'}">
+
+                        operation +=  '<a class="btn btn-info btn-xs btn-line" href="/wayBill/edit?wayBillId='+record.id+'">编辑</a> &nbsp&nbsp';
+                    <c:if test="${user.userType == 1}">
                         operation +=  '<a class="btn btn-info btn-xs btn-line" onclick="deleteWayBill('+record.id+')">删除</a>';
                     </c:if>
                     record.id = operation;
@@ -185,13 +192,13 @@
 
             return '<tr>' + tr + '</tr>';
         }
-
+        var userId = $("#userId").val();
         var dynatable = $('#wayBill_table').dynatable({
             table: {
                 bodyRowSelector: 'td'
             },
             dataset: {
-                ajaxUrl: '/wayBill/list'
+                ajaxUrl: '/wayBill/list?userId=' + userId
             },
             writers: {
                 _rowWriter: userRowWriter
