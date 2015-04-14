@@ -64,10 +64,22 @@
                         </c:if>
 
                         <div class="col-xs-4">
-                            <div id="dataTable_filter" class="dataTables_filter"><label>运单时间：
+                            <div id="dataTable_filter" class="dataTables_filter"><label>起始时间：
                                 <div class="input-group  input-append date">
                                     <span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>
-                                    <input type="text" readonly="" name="queryDate" id="queryDate"
+                                    <input type="text" readonly="" name="begDate" id="begDate"
+                                           class="form-control"  value="">
+
+                                </div>
+                            </label>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-4">
+                            <div id="dataTable_filter" class="dataTables_filter"><label>结束时间：
+                                <div class="input-group  input-append date">
+                                    <span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>
+                                    <input type="text" readonly="" name="endDate" id="endDate"
                                            class="form-control"  value="">
 
                                 </div>
@@ -143,16 +155,25 @@
             $("#logout_form").submit();
         });
 
-        $('#queryDate').daterangepicker({
-            format: "YYYY-MM-DD",
-            separator: "/",
-            maxDate: new Date(),
-            locale: {
-                applyLabel: '确定',
-                cancelLabel: '取消',
-                fromLabel: '从',
-                toLabel: '至'
-            }
+
+        $('#begDate').datepicker({
+            language: 'zh-cn',
+            pickTime: false,
+            todayBtn: true,
+            autoClose: true,
+            minView: '2',
+            forceParse: false,
+            format:"yyyy-mm-dd"
+        });
+
+        $('#endDate').datepicker({
+            language: 'zh-cn',
+            pickTime: false,
+            todayBtn: true,
+            autoClose: true,
+            minView: '2',
+            forceParse: false,
+            format:"yyyy-mm-dd"
         });
 
 
@@ -225,14 +246,20 @@
                 dynatable.queries.add("userNumber",userNumber);
             }
 
-            var queryDate = $("#queryDate").val();
-            if (queryDate == "") {
-                dynatable.queries.remove("queryDate");
+            var begDate = $("#begDate").val();
+            if (begDate == "") {
+                dynatable.queries.remove("begDate");
             } else {
-                dynatable.queries.add("queryDate", queryDate);
+                dynatable.queries.add("begDate", begDate);
+            }
+
+            var endDate = $("#endDate").val();
+            if (endDate == "") {
+                dynatable.queries.remove("endDate");
+            } else {
+                dynatable.queries.add("endDate", endDate);
             }
             dynatable.process();
-            $("#queryDate").val("");
         });
     });
 

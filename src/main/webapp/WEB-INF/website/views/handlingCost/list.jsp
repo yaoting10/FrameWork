@@ -142,6 +142,11 @@
                     record.carLowPrice = record.carLowPrice.toFixed(2) +" 元";
                 }
 
+                if(columns[i].id =="includeArea"){
+                    if(record.includeArea.length>=30)
+                        record.includeArea = record.includeArea.substring(0,30) +"...";
+                }
+
                 tr += cellWriter(columns[i], record);
             }
 

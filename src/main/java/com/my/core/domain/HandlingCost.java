@@ -63,4 +63,6 @@ public class HandlingCost {
      */
     @Column(name = "include_area",length = 1000)
     private String includeArea;
+
+
 }

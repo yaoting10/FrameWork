@@ -51,7 +51,6 @@
 <script src="/resources/website/lib/jquery.uniform/jquery.uniform.min.js"></script>
 <script src="/resources/website/lib/jasny-bootstrap/js/jasny-bootstrap.min.js"></script>
 <script src="/resources/website/lib/jquery-form/jquery.form.js"></script>
-<%--<script src="/resources/website/lib/formwizard/jquery.form.wizard.js"></script>--%>
 <script src="/resources/website/lib/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="/resources/website/lib/jquery-validation/src/localization/messages_ja.js"></script>
 <script src="/resources/website/lib/holderjs/holder.js"></script>
@@ -69,7 +68,9 @@
 <script type="text/javascript" src="/resources/website/lib/bootstrapvalidator/dist/js/language/zh_CN.js"></script>
 
 <script>
+
     $(document).ready(function () {
+
         $("#logout_btn").click(function () {
             $("#logout_form").submit();
         });

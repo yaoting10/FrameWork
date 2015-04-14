@@ -52,10 +52,21 @@
                         </div>--%>
 
                         <div class="col-xs-4">
-                            <div id="dataTable_filter" class="dataTables_filter"><label>运单时间：
+                            <div id="dataTable_filter" class="dataTables_filter"><label>起始时间：
                                 <div class="input-group  input-append date">
                                     <span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>
-                                    <input type="text" readonly="" name="queryDate" id="queryDate"
+                                    <input type="text" readonly="" name="beg" id="beg"
+                                           class="form-control"  value="">
+
+                                </div>
+                            </label>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div id="dataTable_filter" class="dataTables_filter"><label>结束时间：
+                                <div class="input-group  input-append date">
+                                    <span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>
+                                    <input type="text" readonly="" name="end" id="end"
                                            class="form-control"  value="">
 
                                 </div>
@@ -114,16 +125,27 @@
             $("#logout_form").submit();
         });
 
-        $('#queryDate').daterangepicker({
-            format: "YYYY-MM-DD",
-            separator: "/",
+
+
+        $('#beg').datepicker({
+            language: 'zh-cn',
+            pickTime: false,
+            todayBtn: true,
+            autoClose: true,
+            minView: '2',
+            forceParse: false,
+            format:"yyyy-mm-dd"
+        });
+
+        $('#end').datepicker({
+            language: 'zh-cn',
+            pickTime: false,
+            todayBtn: true,
+            autoClose: true,
+            minView: '2',
             maxDate: new Date(),
-            locale: {
-                applyLabel: '确定',
-                cancelLabel: '取消',
-                fromLabel: '从',
-                toLabel: '至'
-            }
+            forceParse: false,
+            format:"yyyy-mm-dd"
         });
 
 
@@ -160,14 +182,20 @@
             }
         }).data('dynatable');
         $("#serachCondition").click(function () {
-            var queryDate = $("#queryDate").val();
-            if (queryDate == "") {
-                dynatable.queries.remove("queryDate");
+            var beg = $("#beg").val();
+            if (beg == "") {
+                dynatable.queries.remove("beg");
             } else {
-                dynatable.queries.add("queryDate", queryDate);
+                dynatable.queries.add("beg", beg);
+            }
+
+            var end = $("#end").val();
+            if (end == "") {
+                dynatable.queries.remove("end");
+            } else {
+                dynatable.queries.add("end", end);
             }
             dynatable.process();
-            $("#queryDate").val("");
         });
     });
 </script>

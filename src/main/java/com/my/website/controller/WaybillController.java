@@ -170,15 +170,19 @@ public class WaybillController {
     }
 
     @RequestMapping(value = "/statistics/list",method = RequestMethod.GET)
-    public @ResponseBody PageableResponse statisticsList(String queryDate) {
+    public @ResponseBody PageableResponse statisticsList(String beg, String end) {
         try {
             Long now =ModelUtils.currentMillis();
             Long beginDate =0L;/*TimeUtils.subMonths(ModelUtils.getBeforeDaysMillis(now), 1)*/
             Long endDate = now;
-            if(StringUtils.isNotBlank(queryDate)){
-                beginDate = ModelUtils.parseToDate(queryDate.split("/")[0]);
-                endDate = ModelUtils.parseToDate(queryDate.split("/")[1]);
+            if (StringUtils.isNotBlank(beg)){
+                beginDate = ModelUtils.parseToDate(beg);
             }
+
+            if (StringUtils.isNotBlank(end)){
+                endDate = ModelUtils.parseToDate(end);
+            }
+
             List<WayBillStatisticsVo> companyVos = wayBillService.statisticForCompany(beginDate, endDate);
             List<WayBillStatisticsVo> wayBillStatisticsVos = wayBillService.statisticWayBill(beginDate, endDate);
 
@@ -207,12 +211,16 @@ public class WaybillController {
         response.addHeader("Content-Disposition", String.format("attachment; filename=%s_%s_%s.xls", exportCategory, from, to));
         response.setContentType("application/octet-stream;charset=GB2312");
         response.setCharacterEncoding("GB2312");
-        try{
-            switch (exportCategory){
-                case STATISTICS : exportService.exportStatisticsVo(parseFrom(from), parseFrom(to), response.getOutputStream());break;
-                case WAY_BILL : exportService.exportWayBill(parseFrom(from), parseFrom(to), response.getOutputStream());break;
+        try {
+            switch (exportCategory) {
+                case STATISTICS:
+                    exportService.exportStatisticsVo(parseFrom(from), parseFrom(to), response.getOutputStream());
+                    break;
+                case WAY_BILL:
+                    exportService.exportWayBill(parseFrom(from), parseFrom(to), response.getOutputStream());
+                    break;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

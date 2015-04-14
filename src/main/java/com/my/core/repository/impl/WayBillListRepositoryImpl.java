@@ -51,16 +51,22 @@ public class WayBillListRepositoryImpl extends SimpleJpaRepository<WayBill, Inte
         Root transactionRoot = criteriaQuery.from(WayBill.class);
         List<Predicate> conditions = new ArrayList<>();
 
-        if(!Objects.isNull(vo.getQueryDate())){
-            Long beginDate = ModelUtils.parseToDate(vo.getQueryDate().split("/")[0]);
-            Long endDate = ModelUtils.parseToDate(vo.getQueryDate().split("/")[1]);
+        if (!Objects.isNull(vo.getBegDate())){
+            Long beginDate = ModelUtils.parseToDate(vo.getBegDate());
+            conditions.add(
+                    criteriaBuilder.and(
+                            criteriaBuilder.greaterThanOrEqualTo(transactionRoot.get("createTime"), beginDate)
+                    )
+            );
+        }
 
-                conditions.add(
-                        criteriaBuilder.and(
-                                criteriaBuilder.greaterThanOrEqualTo(transactionRoot.get("createTime"), beginDate),
-                                criteriaBuilder.lessThanOrEqualTo(transactionRoot.get("createTime"), endDate)
-                        )
-                );
+        if (!Objects.isNull(vo.getEndDate())){
+            Long endDate = ModelUtils.parseToDate(vo.getEndDate());
+            conditions.add(
+                    criteriaBuilder.and(
+                            criteriaBuilder.lessThanOrEqualTo(transactionRoot.get("createTime"), endDate)
+                    )
+            );
         }
 
         if(StringUtils.isNotBlank(vo.getUserNumber())){

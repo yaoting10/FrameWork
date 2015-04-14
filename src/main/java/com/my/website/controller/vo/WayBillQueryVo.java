@@ -13,7 +13,9 @@ public class WayBillQueryVo {
 
     private Integer userId;
 
-    private String queryDate;
+    private String begDate;
+
+    private String endDate;
 
     private String userNumber;
 
