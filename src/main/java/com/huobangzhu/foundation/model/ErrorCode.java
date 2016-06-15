@@ -1,0 +1,121 @@
+package com.huobangzhu.foundation.model;
+
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+
+/**
+ * @author: Tim.Yao
+ */
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+public final class ErrorCode{
+
+    public static final int
+            SUCCESSFUL = 0x0000,
+
+            USER_NO_SUCH = 0x0001,
+            USER_DUPLICATE = 0x0002,
+            USER_NAME_DUPLICATE = 0x0003,
+            USER_EMAIL_DUPLICATE = 0x0004,
+            USER_CELL_DUPLICATE = 0x0005,
+            USER_PROPERTY_ILLEGAL = 0x0006,
+            USER_PWD_ENCRYPTION_ERROR = 0x0007,
+            USER_PHONENUMBER_DUPLICATE = 0x0008,
+            USER_IDCARD_DUPLICATE = 0x0009,
+            TRANSACTIONCODE_PASSWORD_REPAT = 0x0010,
+            USER_BANKCARD_DUPLICATE = 0x0011,
+            USER_REAL_NAME_ILLEGAL = 0x0012,
+            USER_ID_CARD_ILLEGAL = 0x0013,
+            USER_CELL_ILLEGAL = 0x0014,
+            USER_CELL_TOKEN_ILLEGAL = 0x0015,
+            PASSWORD_ILLEGAL = 0x0016,
+            PASSWORD_NOT_SAME = 0x0017,
+            TRANSACTION_CODE_ILLEGAL = 0x0018,
+            TRANSACTION_CODE_NOT_SAME = 0x0019,
+            BANKCARD_CAN_NOT_DEL = 0x0020,
+            USER_IDENTITY_IS_VAILDED = 0x0021,
+            WITHDRAW_AMOUNT_LIMIT = 0x0022,
+            PASSWORD_CELLNO_DUPLICATE = 0x0023,
+
+            BAD_CREDENTIAL = 0x0101,
+
+            RESERVED_ENTITY = 0X0201,
+
+            CAPITAL_NOT_ENOUGH_BALANCE = 0x0301,
+            CREDIT_DUPLICATE = 0x0302,
+            SERVICE_CHARGE_DUPLICATE = 0x0303,
+
+            INVESTMENT_CONSTRAINT = 0x0401,
+
+            INVALID_BANKCARD = 0x0501,
+            INVALID_IDENTITY = 0x0502,
+            SECURITY_AUTHENTICATION_FAILED = 0x0503,
+
+            CLEARING_FAILED = 0x0601,
+
+            SERVICE_SMS_SEND_FAILED = 0x0701,
+            SERVICE_EMAIL_SEND_FAILED = 0x702,
+
+            LOAN_RATE_ILLEGAL = 0x0801,
+            LOAN_AMOUNT_ILLEGAL = 0x0802,
+            LOAN_RAISING_PERIOD_ILLEGAL = 0x0803,
+            LOAN_REPAYT_PERIOD_ILLEGAL = 0x0804,
+            LOAN_AMOUNT_LESS_THAN_PROMOTION_AMOUNT = 0x0805,
+
+            TICKET_REQUIRED = 0x0901,
+            TICKET_INVALID = 0x0902,
+            TICKET_EXPIRED = 0x0903,
+            ILLEGAL_STATE = 0x0904,
+
+            TOKEN_REQUIRED = 0x0A01,
+            TOKEN_INVALID = 0x0A02,
+            TOKEN_EXPIRED = 0x0A03,
+
+            DOSSIER_RESIDENCE_IDENTITY_EMPTY = 0x0B01,
+            DOSSIER_FAMILY_EMPTY = 0x0B02,
+            DOSSIER_CAREER_EMPTY = 0x0B03,
+            DOSSIER_PROPERTY_EMPTY = 0x0B04,
+
+            CLAIM_TRANSFERABLE_FRACTION_OVERFLOW = 0x0C01,
+
+            VERSION_INVALID = 0x0E00,
+
+            CELL_NO_INVALID = 0xF00,
+            CELL_NO_DUPLICATE = 0xF01,
+            CELL_NO_NOT_EXIST = 0xF02,
+            REAL_NAME_INVALID = 0xF03,
+            ID_CARD_INVALID = 0xF04,
+            ID_CARD_DUPLICATE = 0xF05,
+            VERIFICATION_CODE_INVALID = 0xF06,
+            PASSWIRD_INVALID = 0xF07,
+            PASSWIRD_TRANSACTIONCODE_CELL_NO_DUPLICATE = 0xF08,
+            PASSWIRD_TRANSACTIONCODE_DUPLICATE = 0xF09,
+            TRANSACTIONCODE_INVALID = 0xF10,
+            BANKCARD_BANK_INVALID = 0xF11,
+            BANKCARD_BRANCH_INVALID = 0xF12,
+            BANKCARD_SERIAL_INVALID = 0xF13,
+            BANKCARD_SERIAL_DUPLICATE = 0xF14,
+            BANKCARD_WITHDRAING = 0x0F15,
+            CUSTOMER_NO_SUCH = 0xF16,
+            LOAN_NO_SUCH = 0xF17,
+            BANKCARD_NO_SUCH = 0xF18,
+            CLAIM_NO_SUCH = 0x0F19,
+            CODE_EXPIRE = 0xF20,
+            ORIGINAL_PASSWORD_BAD_CREDENTIAL = 0xF21,
+            TRANSACTIONCODE_BAD_CREDENTIAL = 0x0102,
+            LENDING_AMOUNT_OVERFLOW = 0x0F22,
+            CLAIM_FRACTION_INVALID = 0x0F23,
+            CLAIM_PRICE_INVALID = 0x0F24,
+            TRANSACTIONCODE_LOCK = 0x25,
+            TRANSACTIONCODE_UNLOCK = 0x26,
+
+            ILLEGAl_PARAMETER = 0xFF04,
+            ENTITY_NO_SUCH = 0xFF05,
+            QUANTITY_INVALID = 0xFF06,
+            AMOUNT_OVERFLOW = 0xFF07,
+            AMOUNT_ILLEGAL = 0xFF08,
+            COUPON_EXPIRE = 0xFF09,
+
+            METHOD_ARGUMENT_NOT_VALID = 0xFFF0,
+            UNDEFINDED = 0xFFFF;
+
+}
